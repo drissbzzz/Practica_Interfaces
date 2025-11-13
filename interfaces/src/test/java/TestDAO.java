@@ -1,6 +1,8 @@
 
 import com.mycompany.interfaces.Modelo.Cliente;
 import com.mycompany.interfaces.Modelo.EntidadesDAO.ClienteDAO;
+import com.mycompany.interfaces.Modelo.EntidadesDAO.ServiciosDAO;
+import com.mycompany.interfaces.Modelo.Servicios;
 import java.time.LocalDateTime;
 
 /*
@@ -15,27 +17,22 @@ import java.time.LocalDateTime;
 public class TestDAO {
 
     public static void main(String[] args) {
-        ClienteDAO dao = new ClienteDAO();
+        ServiciosDAO dao = new ServiciosDAO();
 
-        /*Cliente nuevo = new Cliente("Driss", "Beidouri", true, 1, LocalDateTime.now());
-        boolean agregado = dao.agregarCliente(nuevo);
-
-        if (agregado) {
-            System.out.println("Cliente agregado correctamente.");
+        /*Servicios nuevo = new Servicios("Abrillantado calva", 150, 10);
+        boolean agregado = dao.agregarServicio(nuevo);
+        System.out.println(agregado ? "Agregado correctamente" : "Error al agregar");*/
+        Servicios s = dao.obtenerServicioPorId(11); 
+        /*if (s != null) {
+            System.out.println("Dato encontrado: " + s.getNombre() + " " + s.getPrecio());
         } else {
-            System.out.println("Error al agregar cliente.");
+            System.out.println("Dato no encontrado");
         }*/
-        Cliente c = dao.obtenerClientePorId(502); 
-        if (c != null) {
-            System.out.println("Cliente encontrado: " + c.getNombre() + " " + c.getApellidos());
-        } else {
-            System.out.println("Cliente no encontrado");
-        }
-        /*c.setNombre("Driss Actualizado");
-        boolean actualizado = dao.actualizarCliente(c);
-        System.out.println(actualizado ? "Cliente actualizado" : "Error al actualizar");*/
-        boolean eliminado = dao.eliminarCliente(c.getId_cliente());
-        System.out.println(eliminado ? "Cliente eliminado" : "Error al eliminar");
+        /*s.setNombre("Brilli a tu calva");
+        boolean actualizado = dao.actualizarServicio(s);
+        System.out.println(actualizado ? "Servicio actualizado" : "Error al actualizar");*/
+        boolean eliminado = dao.eliminarServicio(11);
+        System.out.println(eliminado ? "Dato eliminado" : "Error al eliminar");
         
     }
 }
