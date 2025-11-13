@@ -1,0 +1,87 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.mycompany.interfaces.Modelo.EntidadesDAO;
+
+import com.mycompany.interfaces.Modelo.Citas;
+import com.mycompany.interfaces.Modelo.ConexionBD;
+import com.mycompany.interfaces.Modelo.Productos;
+import com.mycompany.interfaces.Modelo.Ticket;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+/**
+ *
+ * @author driss
+ */
+public class ProductoDAO {
+    
+    private Connection conn;
+
+    public ProductoDAO() {
+        // Obtenemos la conexión mediante ConexionBD
+        conn = ConexionBD.getConnection();
+    }
+    
+    //Hay que implementar los métodos CRUD
+    //Create, es boolean para devolver si funciono o no la inserción
+    public boolean agregarProducto(Productos p) {
+        String sql = "INSERT INTO \"PRODUCTOS\" (\"NOMBRE\", \"TIPO\", \"STOCK_ACTUAL\", \"STOCK_MAX\", \"PROVEEDOR\") VALUES (?, ?, ?, ?, ?)";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            /*Mediante la conexion a la bdd, realizamos un ps
+             que nos permite realizar una consulta de manera segura, reemplazando los "?" por elementos reales*/
+            ps.setString(1, p.getNombre()); // El 1 representa el primer "?" y asi sucesivamente
+            ps.setString(2, p.getTipo());
+            ps.setInt(3, p.getStock_actual());
+            ps.setInt(4, p.getStock_max());
+            ps.setString(5, p.getProveedor());
+            ps.executeUpdate(); //Ejecuta la consulta en la base de datos
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error al realizar la insercion: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    //Read, nos devuelve un cliente de la base de datos mediante el id
+    public Productos obtenerProductoPorId(int id) {
+        String sql = "SELECT * FROM \"PRODUCTOS\" WHERE \"ID_PRODUCTO\" = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery(); //ResultSet nos permite almacenar las filas que obtenemos de la consulta ps
+            if (rs.next()) { // Para comprobar lo que hay almacenado en Rs
+               return new Productos(
+                    rs.getString("nombre"),
+                    rs.getInt("id_producto"),
+                    rs.getString("tipo"),
+                    rs.getInt("stock_actual"), 
+                    rs.getInt("stock_max"),
+                    rs.getString("proveedor")
+                );
+            }
+        } catch (SQLException e) {
+             System.err.println("Error al realizar la consulta: " + e.getMessage());
+        }
+        return null;
+    }
+    public boolean actualizarProducto(Productos p) {
+        String sql = "UPDATE \"PRODUCTOS\" SET \"NOMBRE\" = ?, \"TIPO\" = ?, \"STOCK_ACTUAL\" = ?, \"STOCK_MAX\" = ?, \"PROVEEDOR\" = ? WHERE \"ID_PRODUCTO\" = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, p.getNombre()); // El 1 representa el primer "?" y asi sucesivamente
+            ps.setString(2, p.getTipo());
+            ps.setInt(3, p.getStock_actual());
+            ps.setInt(4, p.getStock_max());
+            ps.setString(5, p.getProveedor());
+            ps.setInt(6, p.getId_producto());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+             System.err.println("Error al realizar la modificacion: " + e.getMessage());
+            return false;
+        }
+    }
+    
+}
