@@ -18,7 +18,7 @@ import java.sql.Timestamp;
  */
 public class CitasDAO {
     
-     private Connection conn;
+    private Connection conn;
 
     public CitasDAO() {
         // Obtenemos la conexión mediante ConexionBD
