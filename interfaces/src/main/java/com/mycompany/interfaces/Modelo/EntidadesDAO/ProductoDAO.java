@@ -83,5 +83,17 @@ public class ProductoDAO {
             return false;
         }
     }
+     //Delete, borrar un cliente de la base de datos mediante su id
+    public boolean eliminarProducto(int id) {
+        String sql = "DELETE FROM \"PRODUCTO\" WHERE \"ID_PRODUCTO\" = ?";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();   // Se elimina un cliente señalando la id
+            return true;
+        } catch (SQLException e) {
+            System.err.println("Error al realizar la eliminacion: " + e.getMessage());
+            return false;
+        }
+    }
     
 }

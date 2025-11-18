@@ -82,6 +82,13 @@ public class Servicios {
         this.citas = new ArrayList<>();
         this.productos = new ArrayList<>();
     }
+    public Servicios(String nombre, int precio, int duracion_media) {
+        this.nombre = nombre;
+        this.precio = precio;
+        this.duracion_media = duracion_media;
+        this.citas = new ArrayList<>();
+        this.productos = new ArrayList<>();
+    }
     
     public Servicios(){}
   
