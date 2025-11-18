@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -66,6 +68,27 @@ public class ProductoDAO {
              System.err.println("Error al realizar la consulta: " + e.getMessage());
         }
         return null;
+    }
+    public List<Productos> getAll() {
+        List<Productos> lista = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM \"PRODUCTOS\"";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Productos p = new Productos();             
+                p.setNombre(rs.getString("nombre"));
+                p.setId_producto(rs.getInt("id_producto"));
+                p.setTipo(rs.getString("tipo"));
+                p.setStock_actual(rs.getInt("stock_actual"));
+                p.setStock_max(rs.getInt("stock_max"));
+                p.setProveedor(rs.getString("proveedor"));           
+                lista.add(p);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al realizar la consulta: " + e.getMessage());
+        }
+        return lista;
     }
     public boolean actualizarProducto(Productos p) {
         String sql = "UPDATE \"PRODUCTOS\" SET \"NOMBRE\" = ?, \"TIPO\" = ?, \"STOCK_ACTUAL\" = ?, \"STOCK_MAX\" = ?, \"PROVEEDOR\" = ? WHERE \"ID_PRODUCTO\" = ?";

@@ -14,10 +14,16 @@ import javax.swing.JTable;
  public class mainControlador{
 
     private ClientesControlador cliCon;
+    private ProductosControlador proCon;
+    private PeluquerasControlador pelCon;
+    private ServiciosControlador serCon; 
+   
     
     public mainControlador(){
         cliCon = new ClientesControlador();
-        
+        proCon= new ProductosControlador();
+        pelCon= new PeluquerasControlador();
+        serCon = new ServiciosControlador();
     }
     
     public JTable iniciar(String tablaSeleccionada) {
@@ -26,6 +32,18 @@ import javax.swing.JTable;
             case "Clientes":
             {
                 return cliCon.tablaHecha();
+            }
+            case "Productos":
+            {
+                return proCon.tablaHecha();
+            }
+            case "Peluqueras":
+            {
+                return pelCon.tablaHecha();
+            }
+            case "Servicios":
+            {
+                return serCon.tablaHecha();
             }
             default: return null;
         }

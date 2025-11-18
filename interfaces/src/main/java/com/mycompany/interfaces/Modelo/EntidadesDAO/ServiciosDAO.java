@@ -5,11 +5,14 @@
 package com.mycompany.interfaces.Modelo.EntidadesDAO;
 
 import com.mycompany.interfaces.Modelo.ConexionBD;
+import com.mycompany.interfaces.Modelo.Productos;
 import com.mycompany.interfaces.Modelo.Servicios;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -59,6 +62,25 @@ public class ServiciosDAO {
             System.err.println("Error al realizar la insercion: " + e.getMessage());           
         }
         return null;
+    }
+       public List<Servicios> getAll() {
+        List<Servicios> lista = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM \"SERVICIOS\"";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Servicios s = new Servicios();  
+                s.setId_servicios(rs.getInt("id_servicio"));
+                s.setNombre(rs.getString("nombre"));                
+                s.setPrecio(rs.getInt("precio"));
+                s.setDuracion_media(rs.getInt("duracion_media"));
+                lista.add(s);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al realizar la consulta: " + e.getMessage());
+        }
+        return lista;
     }
     
     //UPDATE

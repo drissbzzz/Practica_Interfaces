@@ -5,12 +5,15 @@
 package com.mycompany.interfaces.Modelo.EntidadesDAO;
 
 
+import com.mycompany.interfaces.Modelo.Cliente;
 import com.mycompany.interfaces.Modelo.ConexionBD;
 import com.mycompany.interfaces.Modelo.Peluqueras;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -62,6 +65,25 @@ public class PeluquerasDAO {
              System.err.println("Error al realizar la consulta: " + e.getMessage());
         }
         return null;
+    }
+     public List<Peluqueras> getAll() {
+        List<Peluqueras> lista = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM \"PELUQUERAS\"";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Peluqueras p = new Peluqueras();
+                p.setId_peluquera(rs.getInt("id_peluquera"));
+                p.setNombre(rs.getString("nombre"));
+                p.setAnhos_exp(rs.getInt("años_exp"));
+                p.setEstado(rs.getString("estado"));                
+                lista.add(p);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al realizar la consulta: " + e.getMessage());
+        }
+        return lista;
     }
     //Update, podemos modificar los clientes desde java a la base de datos
     public boolean actualizarPeluquera(Peluqueras p) {

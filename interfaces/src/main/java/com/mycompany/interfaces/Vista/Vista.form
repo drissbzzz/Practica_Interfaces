@@ -44,10 +44,10 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="navGeneral" alignment="1" max="32767" attributes="0"/>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="397" max="-2" attributes="0"/>
-                  <Component id="logo" min="-2" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
+                  <Component id="logo" min="-2" pref="324" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="329" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -56,7 +56,7 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                   <Component id="logo" min="-2" pref="90" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="navGeneral" max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -89,7 +89,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1060" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1072" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -153,7 +153,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="panelTabla" max="32767" attributes="0"/>
-                                  <Component id="separacionTablas" alignment="1" pref="679" max="32767" attributes="0"/>
+                                  <Component id="separacionTablas" alignment="1" pref="684" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       <Component id="seleccionTabla" min="-2" pref="199" max="-2" attributes="0"/>
@@ -217,7 +217,7 @@
                       <Layout>
                         <DimensionLayout dim="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="679" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="684" max="32767" attributes="0"/>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
@@ -255,10 +255,10 @@
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       <Component id="editarBoton" min="-2" pref="158" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="separacionGestion" alignment="0" pref="333" max="32767" attributes="0"/>
+                                  <Component id="separacionGestion" alignment="0" pref="340" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="añadirBoton" min="-2" pref="130" max="-2" attributes="0"/>
-                                      <EmptySpace pref="73" max="32767" attributes="0"/>
+                                      <EmptySpace pref="80" max="32767" attributes="0"/>
                                       <Component id="eliminarBoton" min="-2" pref="130" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -363,7 +363,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1060" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1072" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -378,7 +378,7 @@
         <Component class="javax.swing.JLabel" name="logo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\alumno\Documents\GitHub\Practica_Interfaces\interfaces\src\main\java\com\mycompany\interfaces\Vista\images\icono.png"/>
+              <Image iconType="2" name="C:\Users\driss\Documents\NetBeansProjects\Practica_Interfaces\interfaces\src\main\java\com\mycompany\interfaces\Vista\images\icono.png"/>
             </Property>
           </Properties>
         </Component>

@@ -5,8 +5,6 @@
 package com.mycompany.interfaces.Vista;
 
 import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.intellijthemes.FlatMaterialDesignDarkIJTheme;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMTMaterialLighterIJTheme;
 import controlador.mainControlador;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -89,7 +87,7 @@ public class Vista extends javax.swing.JFrame {
         Simulacion.setLayout(SimulacionLayout);
         SimulacionLayout.setHorizontalGroup(
             SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1060, Short.MAX_VALUE)
+            .addGap(0, 1072, Short.MAX_VALUE)
         );
         SimulacionLayout.setVerticalGroup(
             SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,7 +116,7 @@ public class Vista extends javax.swing.JFrame {
         separacionTablas.setLayout(separacionTablasLayout);
         separacionTablasLayout.setHorizontalGroup(
             separacionTablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 679, Short.MAX_VALUE)
+            .addGap(0, 684, Short.MAX_VALUE)
         );
         separacionTablasLayout.setVerticalGroup(
             separacionTablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +134,7 @@ public class Vista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(BDDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(separacionTablas, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                    .addComponent(separacionTablas, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
                     .addGroup(BDDPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(seleccionTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -195,10 +193,10 @@ public class Vista extends javax.swing.JFrame {
                     .addGroup(PanelGestionLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(editarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(separacionGestion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                    .addComponent(separacionGestion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                     .addGroup(PanelGestionLayout.createSequentialGroup()
                         .addComponent(añadirBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                         .addComponent(eliminarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -248,7 +246,7 @@ public class Vista extends javax.swing.JFrame {
         Ranking.setLayout(RankingLayout);
         RankingLayout.setHorizontalGroup(
             RankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1060, Short.MAX_VALUE)
+            .addGap(0, 1072, Short.MAX_VALUE)
         );
         RankingLayout.setVerticalGroup(
             RankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,17 +255,17 @@ public class Vista extends javax.swing.JFrame {
 
         navGeneral.addTab("Ranking", Ranking);
 
-        logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\alumno\\Documents\\GitHub\\Practica_Interfaces\\interfaces\\src\\main\\java\\com\\mycompany\\interfaces\\Vista\\images\\icono.png")); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\driss\\Documents\\NetBeansProjects\\Practica_Interfaces\\interfaces\\src\\main\\java\\com\\mycompany\\interfaces\\Vista\\images\\icono.png")); // NOI18N
 
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
         fondoLayout.setHorizontalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(navGeneral, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(fondoLayout.createSequentialGroup()
-                .addGap(397, 397, 397)
-                .addComponent(logo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(329, 329, 329))
         );
         fondoLayout.setVerticalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
