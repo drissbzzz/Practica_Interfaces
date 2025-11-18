@@ -4,6 +4,9 @@
 
 package com.mycompany.interfaces;
 
+import com.mycompany.interfaces.Vista.Vista;
+import javax.swing.JFrame;
+
 /**
  *
  * @author alumno
@@ -11,6 +14,7 @@ package com.mycompany.interfaces;
 public class main {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Vista app = new Vista();
+        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }

@@ -9,7 +9,7 @@ import java.sql.Connection;
  * @author driss
  */
 public class TestConexionBDD {    
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         Connection conn = ConexionBD.getConnection();
-    }
+    }*/
 }
