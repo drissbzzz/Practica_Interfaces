@@ -1,9 +1,14 @@
 com\mycompany\interfaces\Modelo\EntidadesDAO\ClienteDAO.class
+com\mycompany\interfaces\Modelo\EntidadesDAO\CitasDAO.class
+com\mycompany\interfaces\Modelo\Cliente.class
+com\mycompany\interfaces\Modelo\EntidadesDAO\PeluquerasDAO.class
+com\mycompany\interfaces\Modelo\Ticket.class
+com\mycompany\interfaces\Modelo\EntidadesDAO\ProductoDAO.class
+com\mycompany\interfaces\Vista\Vista.class
+com\mycompany\interfaces\Modelo\Peluqueras.class
 com\mycompany\interfaces\Modelo\Productos.class
 com\mycompany\interfaces\Modelo\Servicios.class
-com\mycompany\interfaces\Modelo\Cliente.class
-com\mycompany\interfaces\Modelo\Ticket.class
+com\mycompany\interfaces\Modelo\EntidadesDAO\TicketDAO.class
 com\mycompany\interfaces\main.class
 com\mycompany\interfaces\Modelo\Citas.class
 com\mycompany\interfaces\Modelo\ConexionBD.class
-com\mycompany\interfaces\Modelo\Peluqueras.class
