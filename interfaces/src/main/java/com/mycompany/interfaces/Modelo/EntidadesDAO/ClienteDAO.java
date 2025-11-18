@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -65,6 +67,29 @@ public class ClienteDAO {
         }
         return null;
     }
+    
+    public List<Cliente> getAll() {
+        List<Cliente> lista = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM \"CLIENTES\"";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId_cliente(rs.getInt("id_cliente"));
+                c.setNombre(rs.getString("nombre"));
+                c.setApellidos(rs.getString("apellidos"));
+                c.setVip(rs.getBoolean("vip"));
+                c.setN_visitas(rs.getInt("n_de_visitas"));
+                c.setFecha_alta(rs.getTimestamp("alta_fecha").toLocalDateTime());
+                lista.add(c);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al realizar la consulta: " + e.getMessage());
+        }
+        return lista;
+    }
+       
     //Update, podemos modificar los clientes desde java a la base de datos
     public boolean actualizarCliente(Cliente c) {
         String sql = "UPDATE \"CLIENTES\" SET \"NOMBRE\" = ?, \"APELLIDOS\" = ?, \"VIP\" = ?, \"N_DE_VISITAS\" = ?, \"ALTA_FECHA\" = ? WHERE \"ID_CLIENTE\" = ?";

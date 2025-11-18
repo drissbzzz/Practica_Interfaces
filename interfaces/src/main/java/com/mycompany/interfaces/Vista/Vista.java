@@ -7,7 +7,12 @@ package com.mycompany.interfaces.Vista;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.intellijthemes.FlatMaterialDesignDarkIJTheme;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMTMaterialLighterIJTheme;
+import controlador.mainControlador;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.UIManager;
 
 /**
@@ -17,19 +22,34 @@ import javax.swing.UIManager;
 public class Vista extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Vista.class.getName());
-
+    mainControlador ctrl = new mainControlador();
     /**
      * Creates new form Vista
      */
     public Vista() {
         initComponents();
         initStyles();
+        
     }
     
+    public void mostrarTabla(JTable tabladatos){
+        panelTabla.removeAll();
+        panelTabla.add(new JScrollPane(tabladatos), BorderLayout.CENTER);
+        panelTabla.revalidate();
+        panelTabla.repaint();
+    }
+    
+
     public void initStyles(){
-        UIManager.put( "TabbedPane.showTabSeparators", false );
-        UIManager.put( "TabbedPane.tabSeparatorsFullHeight", true );
-        UIManager.put( "TabbedPane.selectedBackground", Color.white );
+        añadirBoton.putClientProperty( "JButton.buttonType", "roundRect" );
+        editarBoton.putClientProperty( "JButton.buttonType", "roundRect" );
+        eliminarBoton.putClientProperty( "JButton.buttonType", "roundRect" );
+        editarBoton.putClientProperty( "FlatLaf.styleClass", "h4" );
+        añadirBoton.putClientProperty( "FlatLaf.styleClass", "h4" );
+        eliminarBoton.putClientProperty( "FlatLaf.styleClass", "h4" );
+        seleccionTabla.putClientProperty("FlatLaf.styleClass", "h4");
+        seleccionTabla.putClientProperty( "JComponent.roundRect", true );
+              
     }
 
     /**
@@ -46,15 +66,24 @@ public class Vista extends javax.swing.JFrame {
         Simulacion = new javax.swing.JPanel();
         Gestion = new javax.swing.JPanel();
         BDDPanel = new javax.swing.JPanel();
+        seleccionTabla = new javax.swing.JComboBox<>();
+        separacionTablas = new javax.swing.JPanel();
+        panelTabla = new javax.swing.JPanel();
         PanelGestion = new javax.swing.JPanel();
+        separacionGestion = new javax.swing.JPanel();
+        añadirBoton = new javax.swing.JButton();
+        eliminarBoton = new javax.swing.JButton();
+        editarBoton = new javax.swing.JButton();
         Ranking = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        fondo.setBackground(new java.awt.Color(237, 231, 246));
+        fondo.setBackground(new java.awt.Color(250, 235, 215));
 
-        Simulacion.setBackground(new java.awt.Color(237, 154, 185));
+        navGeneral.setBackground(new java.awt.Color(255, 250, 240));
+
+        Simulacion.setBackground(new java.awt.Color(255, 250, 240));
 
         javax.swing.GroupLayout SimulacionLayout = new javax.swing.GroupLayout(Simulacion);
         Simulacion.setLayout(SimulacionLayout);
@@ -64,33 +93,130 @@ public class Vista extends javax.swing.JFrame {
         );
         SimulacionLayout.setVerticalGroup(
             SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 509, Short.MAX_VALUE)
+            .addGap(0, 502, Short.MAX_VALUE)
         );
 
         navGeneral.addTab("Simulación", Simulacion);
 
-        Gestion.setBackground(new java.awt.Color(237, 154, 185));
+        Gestion.setBackground(new java.awt.Color(255, 250, 240));
+
+        BDDPanel.setBackground(new java.awt.Color(250, 235, 215));
+
+        seleccionTabla.setBackground(new java.awt.Color(255, 250, 240));
+        seleccionTabla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Clientes", "Productos", "Peluqueras", "Servicios" }));
+        seleccionTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seleccionTablaActionPerformed(evt);
+            }
+        });
+
+        separacionTablas.setBackground(new java.awt.Color(255, 250, 240));
+        separacionTablas.setForeground(new java.awt.Color(204, 204, 255));
+        separacionTablas.setPreferredSize(new java.awt.Dimension(0, 3));
+
+        javax.swing.GroupLayout separacionTablasLayout = new javax.swing.GroupLayout(separacionTablas);
+        separacionTablas.setLayout(separacionTablasLayout);
+        separacionTablasLayout.setHorizontalGroup(
+            separacionTablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 679, Short.MAX_VALUE)
+        );
+        separacionTablasLayout.setVerticalGroup(
+            separacionTablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 3, Short.MAX_VALUE)
+        );
+
+        panelTabla.setBackground(new java.awt.Color(255, 250, 240));
+        panelTabla.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout BDDPanelLayout = new javax.swing.GroupLayout(BDDPanel);
         BDDPanel.setLayout(BDDPanelLayout);
         BDDPanelLayout.setHorizontalGroup(
             BDDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 691, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BDDPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(BDDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(separacionTablas, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                    .addGroup(BDDPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(seleccionTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         BDDPanelLayout.setVerticalGroup(
             BDDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BDDPanelLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(seleccionTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(separacionTablas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        PanelGestion.setBackground(new java.awt.Color(250, 235, 215));
+
+        separacionGestion.setBackground(new java.awt.Color(255, 250, 240));
+        separacionGestion.setForeground(new java.awt.Color(204, 204, 255));
+        separacionGestion.setPreferredSize(new java.awt.Dimension(0, 3));
+
+        javax.swing.GroupLayout separacionGestionLayout = new javax.swing.GroupLayout(separacionGestion);
+        separacionGestion.setLayout(separacionGestionLayout);
+        separacionGestionLayout.setHorizontalGroup(
+            separacionGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
+        separacionGestionLayout.setVerticalGroup(
+            separacionGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 3, Short.MAX_VALUE)
+        );
+
+        añadirBoton.setBackground(new java.awt.Color(255, 250, 240));
+        añadirBoton.setText("Añadir");
+
+        eliminarBoton.setBackground(new java.awt.Color(255, 250, 240));
+        eliminarBoton.setText("Eliminar");
+
+        editarBoton.setBackground(new java.awt.Color(255, 250, 240));
+        editarBoton.setText("Editar Datos");
+        editarBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarBotonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelGestionLayout = new javax.swing.GroupLayout(PanelGestion);
         PanelGestion.setLayout(PanelGestionLayout);
         PanelGestionLayout.setHorizontalGroup(
             PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 345, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGestionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(PanelGestionLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(editarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(separacionGestion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                    .addGroup(PanelGestionLayout.createSequentialGroup()
+                        .addComponent(añadirBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                        .addComponent(eliminarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         PanelGestionLayout.setVerticalGroup(
             PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 497, Short.MAX_VALUE)
+            .addGroup(PanelGestionLayout.createSequentialGroup()
+                .addGroup(PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PanelGestionLayout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(añadirBoton))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGestionLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(eliminarBoton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(separacionGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
+                .addComponent(editarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
 
         javax.swing.GroupLayout GestionLayout = new javax.swing.GroupLayout(Gestion);
@@ -99,7 +225,7 @@ public class Vista extends javax.swing.JFrame {
             GestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GestionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(BDDPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BDDPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PanelGestion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -116,7 +242,7 @@ public class Vista extends javax.swing.JFrame {
 
         navGeneral.addTab("Gestion", Gestion);
 
-        Ranking.setBackground(new java.awt.Color(237, 154, 185));
+        Ranking.setBackground(new java.awt.Color(255, 250, 240));
 
         javax.swing.GroupLayout RankingLayout = new javax.swing.GroupLayout(Ranking);
         Ranking.setLayout(RankingLayout);
@@ -126,7 +252,7 @@ public class Vista extends javax.swing.JFrame {
         );
         RankingLayout.setVerticalGroup(
             RankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 509, Short.MAX_VALUE)
+            .addGap(0, 502, Short.MAX_VALUE)
         );
 
         navGeneral.addTab("Ranking", Ranking);
@@ -137,17 +263,17 @@ public class Vista extends javax.swing.JFrame {
         fondo.setLayout(fondoLayout);
         fondoLayout.setHorizontalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navGeneral)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(navGeneral, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(fondoLayout.createSequentialGroup()
+                .addGap(397, 397, 397)
                 .addComponent(logo)
-                .addGap(15, 15, 15))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         fondoLayout.setVerticalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(fondoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(navGeneral))
         );
@@ -167,12 +293,26 @@ public class Vista extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void editarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarBotonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editarBotonActionPerformed
+
+    private void seleccionTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionTablaActionPerformed
+        
+        String seleccion =(String)seleccionTabla.getSelectedItem();
+        //System.out.println(seleccion);
+        mostrarTabla(ctrl.iniciar(seleccion));
+        
+       
+    }//GEN-LAST:event_seleccionTablaActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         FlatLightLaf.setup();
+        UIManager.put( "TabbedPane.selectedBackground", Color.white );
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Vista().setVisible(true));
@@ -184,8 +324,17 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JPanel PanelGestion;
     private javax.swing.JPanel Ranking;
     private javax.swing.JPanel Simulacion;
+    private javax.swing.JButton añadirBoton;
+    private javax.swing.JButton editarBoton;
+    private javax.swing.JButton eliminarBoton;
     private javax.swing.JPanel fondo;
     private javax.swing.JLabel logo;
     private javax.swing.JTabbedPane navGeneral;
+    private javax.swing.JPanel panelTabla;
+    public javax.swing.JComboBox<String> seleccionTabla;
+    private javax.swing.JPanel separacionGestion;
+    private javax.swing.JPanel separacionTablas;
     // End of variables declaration//GEN-END:variables
+
+
 }
