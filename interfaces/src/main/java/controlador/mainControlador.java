@@ -4,6 +4,8 @@
  */
 package controlador;
 
+import com.mycompany.interfaces.Modelo.Cliente;
+import java.time.LocalDateTime;
 import javax.swing.JTable;
 
 
@@ -47,6 +49,26 @@ import javax.swing.JTable;
             }
             default: return null;
         }
-
     }
+    
+    public JTable iniciarVips(){
+        return cliCon.tablaVips();
+    }
+    public JTable iniciarSMR(){
+        return serCon.tablaSMR();              
+    }
+    public JTable iniciarSC(){
+        return proCon.tablaSC();
+    }
+    
+    public Cliente comprobarDatos(int id){
+        return cliCon.comprobarCliente(id);        
+    }
+    public void modificacionCliente(int id, String nombre, String apellidos, String vip, int n_visitas, LocalDateTime fecha_alta){      
+        cliCon.modificarDatos(cliCon.manipulacionCliente(id, nombre, apellidos, vip, n_visitas, fecha_alta));
+    }
+    public void añadirCliente(String nombre, String apellidos, String vip, int n_visitas){      
+        cliCon.crearNuevo(cliCon.creacionCliente (nombre, apellidos, vip, n_visitas));
+    }
+   
 }

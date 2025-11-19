@@ -17,7 +17,7 @@ public class TestObtenciondeDatos {
     
     public static void main(String[] args) {
         ClienteDAO dao =  new ClienteDAO();
-        List<Cliente> lista = dao.getAll();
+        List<Cliente> lista = dao.getVips();
         for (Cliente c : lista) {
             System.out.println(
                 c.getId_cliente() + " | " +

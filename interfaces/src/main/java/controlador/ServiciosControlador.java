@@ -38,4 +38,20 @@ public class ServiciosControlador {
         JTable tabla = new JTable(modeloTabla);
         return tabla;
     }
+    public JTable tablaSMR() {
+        ServiciosDAO dao = new ServiciosDAO();
+        List<Servicios> lista = dao.getMasRentables();
+        String[] columnas = {"ID", "Servicio","Total Facturado"};
+        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0);
+        for (int i = 0; i < lista.size(); i++) {
+            Servicios s = lista.get(i);
+            modeloTabla.addRow(new Object[]{
+                s.getId_servicios(),
+                s.getNombre(),
+                s.getPrecio(),
+            });
+        }
+        JTable tabla = new JTable(modeloTabla);
+        return tabla;
+    }
 }

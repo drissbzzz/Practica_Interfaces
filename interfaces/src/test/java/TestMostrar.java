@@ -18,18 +18,11 @@ import javax.swing.JTable;
  */
 public class TestMostrar {
     
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         mainControlador mainCon = new mainControlador();
+        Cliente c = new Cliente();
+        c = (Cliente) mainCon.comprobarDatos(5);
+        System.out.println(c.getNombre());
         
-        // Simulamos la selección de "Clientes"
-        JTable tabla = mainCon.iniciar("Clientes");
-
-        if (tabla == null) {
-            System.out.println("No se devolvió ninguna tabla.");
-        } else if (tabla.getRowCount() == 0) {
-            System.out.println("La tabla está vacía.");
-        } else {
-            System.out.println("Tabla cargada correctamente.");
-        }
-    }
+    }*/
 }

@@ -63,7 +63,7 @@ public class ServiciosDAO {
         }
         return null;
     }
-       public List<Servicios> getAll() {
+    public List<Servicios> getAll() {
         List<Servicios> lista = new ArrayList<>();
         try {
             String sql = "SELECT * FROM \"SERVICIOS\"";
@@ -82,6 +82,32 @@ public class ServiciosDAO {
         }
         return lista;
     }
+    public List<Servicios> getMasRentables() {
+        List<Servicios> lista = new ArrayList<>();
+        try {
+            String sql = "SELECT \"SERVICIOS\".\"ID_SERVICIO\",\"SERVICIOS\".\"NOMBRE\", SUM(\"TICKET\".\"IMPORTE\") AS \"INGRESOS_TOTALES\"\n"
+                    + "FROM \"SERVICIOS\"\n"
+                    + "JOIN \"many_SERVICIOS_has_many_CITAS\" ON \"SERVICIOS\".\"ID_SERVICIO\" = \"many_SERVICIOS_has_many_CITAS\".\"ID_SERVICIO_SERVICIOS\"\n"
+                    + "JOIN \"CITAS\" ON \"many_SERVICIOS_has_many_CITAS\".\"ID_CITA_CITAS\" = \"CITAS\".\"ID_CITA\"\n"
+                    + "JOIN \"TICKET\" ON \"CITAS\".\"ID_CITA\" = \"TICKET\".\"ID_CITA_CITAS\"\n"
+                    + "GROUP BY  \"SERVICIOS\".\"ID_SERVICIO\", \"SERVICIOS\".\"NOMBRE\"\n"
+                    + "ORDER BY \"INGRESOS_TOTALES\" DESC\n"
+                    + "LIMIT 5;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Servicios s = new Servicios();  
+                s.setId_servicios(rs.getInt("id_servicio"));
+                s.setNombre(rs.getString("nombre"));                
+                s.setPrecio((int) rs.getDouble("INGRESOS_TOTALES"));
+                lista.add(s);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al realizar la consulta: " + e.getMessage());
+        }
+        return lista;
+    }
+    
     
     //UPDATE
     public boolean actualizarServicio(Servicios s){
@@ -113,4 +139,9 @@ public class ServiciosDAO {
             return false;
         }
     }
+
+
+    //public static void main(String[] args) {}
+       
 }
+

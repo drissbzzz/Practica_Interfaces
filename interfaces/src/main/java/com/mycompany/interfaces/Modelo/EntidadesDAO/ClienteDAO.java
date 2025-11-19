@@ -68,10 +68,32 @@ public class ClienteDAO {
         return null;
     }
     
+    public List<Cliente> getVips(){
+        List<Cliente> lista = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM \"CLIENTES\" WHERE \"VIP\" IS TRUE ORDER BY \"ID_CLIENTE\"";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Cliente c = new Cliente();
+                c.setId_cliente(rs.getInt("id_cliente"));
+                c.setNombre(rs.getString("nombre"));
+                c.setApellidos(rs.getString("apellidos"));
+                c.setVip(rs.getBoolean("vip"));
+                c.setN_visitas(rs.getInt("n_de_visitas"));
+                c.setFecha_alta(rs.getTimestamp("alta_fecha").toLocalDateTime());
+                lista.add(c);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al realizar la consulta: " + e.getMessage());
+        }
+        return lista;
+    }
+    
     public List<Cliente> getAll() {
         List<Cliente> lista = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM \"CLIENTES\"";
+            String sql = "SELECT * FROM \"CLIENTES\"ORDER BY \"ID_CLIENTE\"";
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

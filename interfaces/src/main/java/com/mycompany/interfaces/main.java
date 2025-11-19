@@ -4,8 +4,11 @@
 
 package com.mycompany.interfaces;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import com.mycompany.interfaces.Vista.Vista;
+import java.awt.Color;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 
 /**
  *
@@ -13,8 +16,12 @@ import javax.swing.JFrame;
  */
 public class main {
 
-    public static void main(String[] args) {
-        Vista app = new Vista();
-        app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        FlatLightLaf.setup();
+        UIManager.put( "TabbedPane.selectedBackground", Color.white );
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(() -> new Vista().setVisible(true));
     }
 }

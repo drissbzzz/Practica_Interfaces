@@ -4,7 +4,6 @@
  */
 package controlador;
 
-import com.mycompany.interfaces.Modelo.Cliente;
 import com.mycompany.interfaces.Modelo.EntidadesDAO.ProductoDAO;
 import com.mycompany.interfaces.Modelo.Productos;
 import java.util.List;
@@ -41,15 +40,31 @@ public class ProductosControlador {
         JTable tabla = new JTable(modeloTabla);
         return tabla;
     }
-    
+    public JTable tablaSC() {
+        ProductoDAO dao = new ProductoDAO();
+        List<Productos> lista = dao.getStockCriticos();
+        String[] columnas = {"ID", "Producto","Stock actual", "Stock maximo"};
+        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0);
+        for (int i = 0; i < lista.size(); i++) {
+            Productos p = lista.get(i);
+            modeloTabla.addRow(new Object[]{
+                p.getId_producto(),
+                p.getNombre(),
+                p.getStock_actual(),
+                p.getStock_max(),
+            });
+        }
+        JTable tabla = new JTable(modeloTabla);
+        return tabla;
+    }
     /*public static void main(String[] args) {
 
         ProductosControlador hola = new ProductosControlador();
-        JTable tabla = hola.tablaHecha();
+        JTable tabla = hola.tablaSC();
         if (tabla.getRowCount() == 0) {
             System.out.println("La tabla está vacía o no se ha cargado correctamente.");
         } else {
-            System.out.println("La tabla se ha cargado correctamente. Contenido:");
+            System.out.println("La tabla se ha cargado correctamente.");
         }
     }*/
     //FUNCIONA

@@ -90,6 +90,29 @@ public class ProductoDAO {
         }
         return lista;
     }
+    
+    public List<Productos> getStockCriticos() {
+        List<Productos> lista = new ArrayList<>();
+        try {
+            String sql =  "SELECT \"ID_PRODUCTO\",\"NOMBRE\",\"STOCK_ACTUAL\", \"STOCK_MAX\"\n"
+                        + "FROM \"PRODUCTOS\"\n"
+                        + "WHERE\"STOCK_ACTUAL\" < 0.1 * \"STOCK_MAX\"\n"
+                        + "ORDER BY \"STOCK_ACTUAL\" ASC;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Productos p = new Productos();  
+                p.setId_producto(rs.getInt("id_producto"));
+                p.setNombre(rs.getString("nombre"));                
+                p.setStock_actual(rs.getInt("stock_actual"));
+                p.setStock_max(rs.getInt("stock_max"));
+                lista.add(p);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al realizar la consulta: " + e.getMessage());
+        }
+        return lista;
+    }
     public boolean actualizarProducto(Productos p) {
         String sql = "UPDATE \"PRODUCTOS\" SET \"NOMBRE\" = ?, \"TIPO\" = ?, \"STOCK_ACTUAL\" = ?, \"STOCK_MAX\" = ?, \"PROVEEDOR\" = ? WHERE \"ID_PRODUCTO\" = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {

@@ -5,10 +5,13 @@
 package com.mycompany.interfaces.Vista;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.mycompany.interfaces.Modelo.Cliente;
 import controlador.mainControlador;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.time.LocalDateTime;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
@@ -27,27 +30,79 @@ public class Vista extends javax.swing.JFrame {
     public Vista() {
         initComponents();
         initStyles();
-        
+        setResizable(false);
+        iniciarTablas();
     }
     
-    public void mostrarTabla(JTable tabladatos){
+    public void mostrarTablaBDD(JTable tabladatos){
+        JScrollPane scrollPane = new JScrollPane(tabladatos);
+        scrollPane.setPreferredSize(new java.awt.Dimension(693, 421));
         panelTabla.removeAll();
-        panelTabla.add(new JScrollPane(tabladatos), BorderLayout.CENTER);
+        panelTabla.add(scrollPane, BorderLayout.CENTER);
         panelTabla.revalidate();
         panelTabla.repaint();
     }
-    
+    public void mostrarTablaVips(JTable tabladatos){
+        JScrollPane scrollPane = new JScrollPane(tabladatos);
+        scrollPane.setPreferredSize(new java.awt.Dimension(328, 428));
+        tablaCV.removeAll();
+        tablaCV.add(scrollPane, BorderLayout.CENTER);
+        tablaCV.revalidate();
+        tablaCV.repaint();   
+    }
+    public void mostrarTablaSMR(JTable tabladatos){
+        JScrollPane scrollPane = new JScrollPane(tabladatos);
+        scrollPane.setPreferredSize(new java.awt.Dimension(328, 428));
+        tablaSMR.removeAll();
+        tablaSMR.add(scrollPane, BorderLayout.CENTER);
+        tablaSMR.revalidate();
+        tablaSMR.repaint();   
+    }
+    public void mostrarTablaSC(JTable tabladatos){
+        JScrollPane scrollPane = new JScrollPane(tabladatos);
+        scrollPane.setPreferredSize(new java.awt.Dimension(328, 428));
+        tablaSC.removeAll();
+        tablaSC.add(scrollPane, BorderLayout.CENTER);
+        tablaSC.revalidate();
+        tablaSC.repaint();   
+    }
 
+    public void mostrarCliente(Cliente c) {
+        NombreField.setText(c.getNombre());
+        ApellidosField.setText(c.getApellidos());
+        VipField.setText(String.valueOf(c.isVip()));
+        NDVisitasField.setText(String.valueOf(c.getN_visitas()));
+        FechadeAltaField.setText(String.valueOf(c.getFecha_alta()));             
+    }
     public void initStyles(){
         añadirBoton.putClientProperty( "JButton.buttonType", "roundRect" );
         editarBoton.putClientProperty( "JButton.buttonType", "roundRect" );
-        eliminarBoton.putClientProperty( "JButton.buttonType", "roundRect" );
         editarBoton.putClientProperty( "FlatLaf.styleClass", "h4" );
         añadirBoton.putClientProperty( "FlatLaf.styleClass", "h4" );
-        eliminarBoton.putClientProperty( "FlatLaf.styleClass", "h4" );
         seleccionTabla.putClientProperty("FlatLaf.styleClass", "h4");
         seleccionTabla.putClientProperty( "JComponent.roundRect", true );
-              
+        tituloLabel.putClientProperty( "FlatLaf.style", "font: $h1.font" );
+        NombreLabel.putClientProperty( "FlatLaf.style", "font: bold " );
+        IDLabel.putClientProperty( "FlatLaf.style", "font: bold " );
+        ApellidosLabel.putClientProperty( "FlatLaf.style", "font: bold " );
+        VipLabel.putClientProperty( "FlatLaf.style", "font: bold " );  
+        NDeVisitasLabel.putClientProperty( "FlatLaf.style", "font: bold " );
+        FechadAltaLabel.putClientProperty( "FlatLaf.style", "font: bold " );
+        tituloCVips.putClientProperty( "FlatLaf.style", "font: bold " );
+        tituloServiciosR.putClientProperty( "FlatLaf.style", "font: bold " );
+        tituloSCrit.putClientProperty( "FlatLaf.style", "font: bold " );
+    }
+    
+    public void iniciarTablas(){
+        tablaCV.setLayout(new BorderLayout());
+        JTable tablaVips = ctrl.iniciarVips();
+        mostrarTablaVips(tablaVips);
+        tablaSMR.setLayout(new BorderLayout());
+        JTable tablaSMR = ctrl.iniciarSMR();
+        mostrarTablaSMR(tablaSMR);
+        tablaSC.setLayout(new BorderLayout());
+        JTable tablaSC = ctrl.iniciarSC();
+        mostrarTablaSC(tablaSC);
     }
 
     /**
@@ -70,16 +125,46 @@ public class Vista extends javax.swing.JFrame {
         PanelGestion = new javax.swing.JPanel();
         separacionGestion = new javax.swing.JPanel();
         añadirBoton = new javax.swing.JButton();
-        eliminarBoton = new javax.swing.JButton();
         editarBoton = new javax.swing.JButton();
-        Ranking = new javax.swing.JPanel();
+        panelEdicion = new javax.swing.JPanel();
+        NombreLabel = new javax.swing.JLabel();
+        IDLabel = new javax.swing.JLabel();
+        ApellidosLabel = new javax.swing.JLabel();
+        VipLabel = new javax.swing.JLabel();
+        NDeVisitasLabel = new javax.swing.JLabel();
+        FechadAltaLabel = new javax.swing.JLabel();
+        tituloLabel = new javax.swing.JLabel();
+        IDField = new javax.swing.JTextField();
+        ApellidosField = new javax.swing.JTextField();
+        NombreField = new javax.swing.JTextField();
+        VipField = new javax.swing.JTextField();
+        NDVisitasField = new javax.swing.JTextField();
+        FechadeAltaField = new javax.swing.JTextField();
+        DCriticos = new javax.swing.JPanel();
+        ServiciosMasRentablesPanel = new javax.swing.JPanel();
+        tituloServiciosR = new javax.swing.JLabel();
+        tablaSMR = new javax.swing.JPanel();
+        ClientesVIPPanel = new javax.swing.JPanel();
+        tituloCVips = new javax.swing.JLabel();
+        tablaCV = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        ProdStockCriticoPanel = new javax.swing.JPanel();
+        tituloSCrit = new javax.swing.JLabel();
+        tablaSC = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         fondo.setBackground(new java.awt.Color(250, 235, 215));
+        fondo.setMaximumSize(new java.awt.Dimension(1081, 645));
 
         navGeneral.setBackground(new java.awt.Color(255, 250, 240));
+        navGeneral.setMaximumSize(new java.awt.Dimension(1081, 537));
+        navGeneral.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                navGeneralFocusGained(evt);
+            }
+        });
 
         Simulacion.setBackground(new java.awt.Color(255, 250, 240));
 
@@ -87,7 +172,7 @@ public class Vista extends javax.swing.JFrame {
         Simulacion.setLayout(SimulacionLayout);
         SimulacionLayout.setHorizontalGroup(
             SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1072, Short.MAX_VALUE)
+            .addGap(0, 1081, Short.MAX_VALUE)
         );
         SimulacionLayout.setVerticalGroup(
             SimulacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,6 +184,7 @@ public class Vista extends javax.swing.JFrame {
         Gestion.setBackground(new java.awt.Color(255, 250, 240));
 
         BDDPanel.setBackground(new java.awt.Color(250, 235, 215));
+        BDDPanel.setMaximumSize(new java.awt.Dimension(705, 69));
 
         seleccionTabla.setBackground(new java.awt.Color(255, 250, 240));
         seleccionTabla.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Clientes", "Productos", "Peluqueras", "Servicios" }));
@@ -116,7 +202,7 @@ public class Vista extends javax.swing.JFrame {
         separacionTablas.setLayout(separacionTablasLayout);
         separacionTablasLayout.setHorizontalGroup(
             separacionTablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 684, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         separacionTablasLayout.setVerticalGroup(
             separacionTablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,6 +210,8 @@ public class Vista extends javax.swing.JFrame {
         );
 
         panelTabla.setBackground(new java.awt.Color(255, 250, 240));
+        panelTabla.setMaximumSize(new java.awt.Dimension(693, 421));
+        panelTabla.setPreferredSize(new java.awt.Dimension(693, 421));
         panelTabla.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout BDDPanelLayout = new javax.swing.GroupLayout(BDDPanel);
@@ -134,7 +222,7 @@ public class Vista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(BDDPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelTabla, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(separacionTablas, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+                    .addComponent(separacionTablas, javax.swing.GroupLayout.DEFAULT_SIZE, 693, Short.MAX_VALUE)
                     .addGroup(BDDPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(seleccionTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -153,6 +241,7 @@ public class Vista extends javax.swing.JFrame {
         );
 
         PanelGestion.setBackground(new java.awt.Color(250, 235, 215));
+        PanelGestion.setMaximumSize(new java.awt.Dimension(352, 490));
 
         separacionGestion.setBackground(new java.awt.Color(255, 250, 240));
         separacionGestion.setForeground(new java.awt.Color(204, 204, 255));
@@ -171,9 +260,11 @@ public class Vista extends javax.swing.JFrame {
 
         añadirBoton.setBackground(new java.awt.Color(255, 250, 240));
         añadirBoton.setText("Añadir");
-
-        eliminarBoton.setBackground(new java.awt.Color(255, 250, 240));
-        eliminarBoton.setText("Eliminar");
+        añadirBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                añadirBotonActionPerformed(evt);
+            }
+        });
 
         editarBoton.setBackground(new java.awt.Color(255, 250, 240));
         editarBoton.setText("Editar Datos");
@@ -183,38 +274,145 @@ public class Vista extends javax.swing.JFrame {
             }
         });
 
+        panelEdicion.setBackground(new java.awt.Color(255, 250, 240));
+
+        NombreLabel.setText("Nombre");
+
+        IDLabel.setText("ID");
+
+        ApellidosLabel.setText("Apellidos");
+
+        VipLabel.setText("VIP");
+
+        NDeVisitasLabel.setText("Nº De Visitas");
+
+        FechadAltaLabel.setText("Fecha de alta");
+
+        tituloLabel.setText("CLIENTES");
+
+        IDField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDFieldActionPerformed(evt);
+            }
+        });
+
+        ApellidosField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ApellidosFieldActionPerformed(evt);
+            }
+        });
+
+        NombreField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NombreFieldActionPerformed(evt);
+            }
+        });
+
+        VipField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VipFieldActionPerformed(evt);
+            }
+        });
+
+        NDVisitasField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NDVisitasFieldActionPerformed(evt);
+            }
+        });
+
+        FechadeAltaField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FechadeAltaFieldActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelEdicionLayout = new javax.swing.GroupLayout(panelEdicion);
+        panelEdicion.setLayout(panelEdicionLayout);
+        panelEdicionLayout.setHorizontalGroup(
+            panelEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEdicionLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(panelEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(FechadAltaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                        .addComponent(NDeVisitasLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(VipLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(ApellidosLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGroup(panelEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ApellidosField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NombreField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(VipField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NDVisitasField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FechadeAltaField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(panelEdicionLayout.createSequentialGroup()
+                .addGap(118, 118, 118)
+                .addComponent(tituloLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelEdicionLayout.setVerticalGroup(
+            panelEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEdicionLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tituloLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(panelEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(IDLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IDField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NombreLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NombreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ApellidosLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ApellidosField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(VipLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(VipField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(NDeVisitasLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NDVisitasField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelEdicionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FechadAltaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FechadeAltaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32))
+        );
+
         javax.swing.GroupLayout PanelGestionLayout = new javax.swing.GroupLayout(PanelGestion);
         PanelGestion.setLayout(PanelGestionLayout);
         PanelGestionLayout.setHorizontalGroup(
             PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGestionLayout.createSequentialGroup()
+            .addGroup(PanelGestionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(PanelGestionLayout.createSequentialGroup()
+                .addGroup(PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGestionLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(editarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(separacionGestion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                    .addGroup(PanelGestionLayout.createSequentialGroup()
-                        .addComponent(añadirBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                        .addComponent(eliminarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(separacionGestion, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                    .addComponent(panelEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(añadirBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         PanelGestionLayout.setVerticalGroup(
             PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelGestionLayout.createSequentialGroup()
-                .addGroup(PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelGestionLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(añadirBoton))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGestionLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(eliminarBoton)))
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(añadirBoton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(separacionGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 368, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout GestionLayout = new javax.swing.GroupLayout(Gestion);
@@ -225,7 +423,7 @@ public class Vista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(BDDPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(PanelGestion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         GestionLayout.setVerticalGroup(
@@ -233,27 +431,187 @@ public class Vista extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GestionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(GestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(PanelGestion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PanelGestion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BDDPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         navGeneral.addTab("Gestion", Gestion);
 
-        Ranking.setBackground(new java.awt.Color(255, 250, 240));
+        DCriticos.setBackground(new java.awt.Color(255, 250, 240));
+        DCriticos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                DCriticosFocusGained(evt);
+            }
+        });
 
-        javax.swing.GroupLayout RankingLayout = new javax.swing.GroupLayout(Ranking);
-        Ranking.setLayout(RankingLayout);
-        RankingLayout.setHorizontalGroup(
-            RankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1072, Short.MAX_VALUE)
+        ServiciosMasRentablesPanel.setBackground(new java.awt.Color(250, 235, 215));
+        ServiciosMasRentablesPanel.setMaximumSize(new java.awt.Dimension(340, 490));
+        ServiciosMasRentablesPanel.setPreferredSize(new java.awt.Dimension(340, 490));
+
+        tituloServiciosR.setText("SERVICIOS MÁS RENTABLES");
+
+        tablaSMR.setBackground(new java.awt.Color(255, 250, 240));
+        tablaSMR.setMaximumSize(new java.awt.Dimension(328, 428));
+
+        javax.swing.GroupLayout tablaSMRLayout = new javax.swing.GroupLayout(tablaSMR);
+        tablaSMR.setLayout(tablaSMRLayout);
+        tablaSMRLayout.setHorizontalGroup(
+            tablaSMRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        RankingLayout.setVerticalGroup(
-            RankingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
+        tablaSMRLayout.setVerticalGroup(
+            tablaSMRLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        navGeneral.addTab("Ranking", Ranking);
+        javax.swing.GroupLayout ServiciosMasRentablesPanelLayout = new javax.swing.GroupLayout(ServiciosMasRentablesPanel);
+        ServiciosMasRentablesPanel.setLayout(ServiciosMasRentablesPanelLayout);
+        ServiciosMasRentablesPanelLayout.setHorizontalGroup(
+            ServiciosMasRentablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ServiciosMasRentablesPanelLayout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addComponent(tituloServiciosR)
+                .addContainerGap(101, Short.MAX_VALUE))
+            .addGroup(ServiciosMasRentablesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tablaSMR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        ServiciosMasRentablesPanelLayout.setVerticalGroup(
+            ServiciosMasRentablesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ServiciosMasRentablesPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tituloServiciosR, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tablaSMR, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        ClientesVIPPanel.setBackground(new java.awt.Color(250, 235, 215));
+        ClientesVIPPanel.setMaximumSize(new java.awt.Dimension(340, 490));
+
+        tituloCVips.setText("CLIENTES VIP");
+
+        tablaCV.setBackground(new java.awt.Color(255, 250, 240));
+        tablaCV.setMaximumSize(new java.awt.Dimension(328, 428));
+
+        javax.swing.GroupLayout tablaCVLayout = new javax.swing.GroupLayout(tablaCV);
+        tablaCV.setLayout(tablaCVLayout);
+        tablaCVLayout.setHorizontalGroup(
+            tablaCVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 328, Short.MAX_VALUE)
+        );
+        tablaCVLayout.setVerticalGroup(
+            tablaCVLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 428, Short.MAX_VALUE)
+        );
+
+        jButton1.setBackground(new java.awt.Color(242, 242, 242));
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\driss\\Documents\\NetBeansProjects\\Practica_Interfaces\\interfaces\\src\\main\\java\\com\\mycompany\\interfaces\\Vista\\images\\boton.png")); // NOI18N
+        jButton1.setBorderPainted(false);
+        jButton1.setContentAreaFilled(false);
+        jButton1.setPreferredSize(new java.awt.Dimension(25, 25));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ClientesVIPPanelLayout = new javax.swing.GroupLayout(ClientesVIPPanel);
+        ClientesVIPPanel.setLayout(ClientesVIPPanelLayout);
+        ClientesVIPPanelLayout.setHorizontalGroup(
+            ClientesVIPPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ClientesVIPPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ClientesVIPPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ClientesVIPPanelLayout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
+                        .addComponent(tituloCVips))
+                    .addComponent(tablaCV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        ClientesVIPPanelLayout.setVerticalGroup(
+            ClientesVIPPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ClientesVIPPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(ClientesVIPPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tituloCVips, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tablaCV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        ProdStockCriticoPanel.setBackground(new java.awt.Color(250, 235, 215));
+        ProdStockCriticoPanel.setMaximumSize(new java.awt.Dimension(340, 490));
+        ProdStockCriticoPanel.setPreferredSize(new java.awt.Dimension(340, 490));
+
+        tituloSCrit.setText("STOCK CRÍTICO");
+
+        tablaSC.setBackground(new java.awt.Color(255, 250, 240));
+        tablaSC.setMaximumSize(new java.awt.Dimension(328, 428));
+
+        javax.swing.GroupLayout tablaSCLayout = new javax.swing.GroupLayout(tablaSC);
+        tablaSC.setLayout(tablaSCLayout);
+        tablaSCLayout.setHorizontalGroup(
+            tablaSCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        tablaSCLayout.setVerticalGroup(
+            tablaSCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout ProdStockCriticoPanelLayout = new javax.swing.GroupLayout(ProdStockCriticoPanel);
+        ProdStockCriticoPanel.setLayout(ProdStockCriticoPanelLayout);
+        ProdStockCriticoPanelLayout.setHorizontalGroup(
+            ProdStockCriticoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProdStockCriticoPanelLayout.createSequentialGroup()
+                .addContainerGap(127, Short.MAX_VALUE)
+                .addComponent(tituloSCrit)
+                .addGap(130, 130, 130))
+            .addGroup(ProdStockCriticoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tablaSC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        ProdStockCriticoPanelLayout.setVerticalGroup(
+            ProdStockCriticoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ProdStockCriticoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tituloSCrit, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tablaSC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout DCriticosLayout = new javax.swing.GroupLayout(DCriticos);
+        DCriticos.setLayout(DCriticosLayout);
+        DCriticosLayout.setHorizontalGroup(
+            DCriticosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DCriticosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ServiciosMasRentablesPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(ClientesVIPPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ProdStockCriticoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+        DCriticosLayout.setVerticalGroup(
+            DCriticosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(DCriticosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(DCriticosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ClientesVIPPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ProdStockCriticoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ServiciosMasRentablesPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        navGeneral.addTab("Datos Críticos", DCriticos);
 
         logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\driss\\Documents\\NetBeansProjects\\Practica_Interfaces\\interfaces\\src\\main\\java\\com\\mycompany\\interfaces\\Vista\\images\\icono.png")); // NOI18N
 
@@ -261,11 +619,11 @@ public class Vista extends javax.swing.JFrame {
         fondo.setLayout(fondoLayout);
         fondoLayout.setHorizontalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(navGeneral, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fondoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(329, 329, 329))
+            .addComponent(navGeneral, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(fondoLayout.createSequentialGroup()
+                .addGap(388, 388, 388)
+                .addComponent(logo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         fondoLayout.setVerticalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,7 +631,7 @@ public class Vista extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(navGeneral))
+                .addComponent(navGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -284,7 +642,9 @@ public class Vista extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(fondo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(fondo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -292,46 +652,144 @@ public class Vista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void editarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarBotonActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: 
+        if (IDField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "No se referió a ningún cliente. Debe añadir el ID objetivo");
+            IDField.setText("");
+            NombreField.setText("");
+            ApellidosField.setText("");
+            VipField.setText("");
+            NDVisitasField.setText("");
+            FechadeAltaField.setText("");
+        } else {
+            int id_cliente = Integer.parseInt(IDField.getText());
+            String nombre = NombreField.getText();
+            String apellidos = ApellidosField.getText();
+            String vip = VipField.getText();
+            int visitas = Integer.parseInt(NDVisitasField.getText());
+            LocalDateTime fecha = LocalDateTime.parse(FechadeAltaField.getText());
+
+            ctrl.modificacionCliente(id_cliente, nombre, apellidos, vip, visitas, fecha);
+            String seleccion = (String) seleccionTabla.getSelectedItem();
+            mostrarTablaBDD(ctrl.iniciar(seleccion));
+        }      
     }//GEN-LAST:event_editarBotonActionPerformed
 
     private void seleccionTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionTablaActionPerformed
         
         String seleccion =(String)seleccionTabla.getSelectedItem();
         //System.out.println(seleccion);
-        mostrarTabla(ctrl.iniciar(seleccion));
+        mostrarTablaBDD(ctrl.iniciar(seleccion));
         
        
     }//GEN-LAST:event_seleccionTablaActionPerformed
 
+    private void IDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDFieldActionPerformed
+        // TODO add your handling code here:
+        if (ctrl.comprobarDatos(Integer.parseInt(IDField.getText())) != null) {
+            int id = Integer.parseInt(IDField.getText());
+            mostrarCliente(ctrl.comprobarDatos(id));
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe un cliente con ese ID");
+            IDField.setText("");
+            NombreField.setText("");
+            ApellidosField.setText("");
+            VipField.setText("");
+            NDVisitasField.setText("");
+            FechadeAltaField.setText("");
+        }
+    }//GEN-LAST:event_IDFieldActionPerformed
+
+    private void ApellidosFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ApellidosFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ApellidosFieldActionPerformed
+
+    private void NombreFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NombreFieldActionPerformed
+
+    private void VipFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VipFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_VipFieldActionPerformed
+
+    private void NDVisitasFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NDVisitasFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_NDVisitasFieldActionPerformed
+
+    private void FechadeAltaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FechadeAltaFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FechadeAltaFieldActionPerformed
+
+    private void añadirBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirBotonActionPerformed
+        // TODO add your handling code here
+        IDField.setText("");
+        String nombre = NombreField.getText();
+        String apellidos = ApellidosField.getText();
+        String vip = VipField.getText();
+        int visitas = Integer.parseInt(NDVisitasField.getText());
+
+        ctrl.añadirCliente(nombre, apellidos, vip, visitas);
+        String seleccion = (String) seleccionTabla.getSelectedItem();
+        mostrarTablaBDD(ctrl.iniciar(seleccion));
+    }//GEN-LAST:event_añadirBotonActionPerformed
+
+    private void navGeneralFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_navGeneralFocusGained
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_navGeneralFocusGained
+
+    private void DCriticosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DCriticosFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DCriticosFocusGained
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        iniciarTablas();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        FlatLightLaf.setup();
-        UIManager.put( "TabbedPane.selectedBackground", Color.white );
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Vista().setVisible(true));
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField ApellidosField;
+    private javax.swing.JLabel ApellidosLabel;
     private javax.swing.JPanel BDDPanel;
+    private javax.swing.JPanel ClientesVIPPanel;
+    private javax.swing.JPanel DCriticos;
+    private javax.swing.JLabel FechadAltaLabel;
+    private javax.swing.JTextField FechadeAltaField;
     private javax.swing.JPanel Gestion;
+    private javax.swing.JTextField IDField;
+    private javax.swing.JLabel IDLabel;
+    private javax.swing.JTextField NDVisitasField;
+    private javax.swing.JLabel NDeVisitasLabel;
+    private javax.swing.JTextField NombreField;
+    private javax.swing.JLabel NombreLabel;
     private javax.swing.JPanel PanelGestion;
-    private javax.swing.JPanel Ranking;
+    private javax.swing.JPanel ProdStockCriticoPanel;
+    private javax.swing.JPanel ServiciosMasRentablesPanel;
     private javax.swing.JPanel Simulacion;
+    private javax.swing.JTextField VipField;
+    private javax.swing.JLabel VipLabel;
     private javax.swing.JButton añadirBoton;
     private javax.swing.JButton editarBoton;
-    private javax.swing.JButton eliminarBoton;
     private javax.swing.JPanel fondo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel logo;
     private javax.swing.JTabbedPane navGeneral;
+    private javax.swing.JPanel panelEdicion;
     private javax.swing.JPanel panelTabla;
     public javax.swing.JComboBox<String> seleccionTabla;
     private javax.swing.JPanel separacionGestion;
     private javax.swing.JPanel separacionTablas;
+    private javax.swing.JPanel tablaCV;
+    private javax.swing.JPanel tablaSC;
+    private javax.swing.JPanel tablaSMR;
+    private javax.swing.JLabel tituloCVips;
+    private javax.swing.JLabel tituloLabel;
+    private javax.swing.JLabel tituloSCrit;
+    private javax.swing.JLabel tituloServiciosR;
     // End of variables declaration//GEN-END:variables
 
 
