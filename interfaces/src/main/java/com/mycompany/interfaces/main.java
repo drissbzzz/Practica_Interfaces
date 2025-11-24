@@ -5,6 +5,7 @@
 package com.mycompany.interfaces;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.mycompany.interfaces.Vista.Login;
 import com.mycompany.interfaces.Vista.Vista;
 import java.awt.Color;
 import javax.swing.JFrame;
@@ -22,6 +23,6 @@ public class main {
         UIManager.put( "TabbedPane.selectedBackground", Color.white );
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new Vista().setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
     }
 }

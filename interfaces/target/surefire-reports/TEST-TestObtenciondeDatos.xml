@@ -15,7 +15,7 @@
     <property name="user.country" value="ES"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk-23\bin"/>
-    <property name="sun.java.command" value="C:\Users\driss\AppData\Local\Temp\surefire11534097542851062825\surefirebooter-20251119153658623_3.jar C:\Users\driss\AppData\Local\Temp\surefire11534097542851062825 2025-11-19T15-36-58_523-jvmRun1 surefire-20251119153658623_1tmp surefire_0-20251119153658623_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\driss\AppData\Local\Temp\surefire4609775662167982110\surefirebooter-20251124184136631_3.jar C:\Users\driss\AppData\Local\Temp\surefire4609775662167982110 2025-11-24T18-41-36_527-jvmRun1 surefire-20251124184136631_1tmp surefire_0-20251124184136631_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="C:\Users\driss\Documents\NetBeansProjects\Practica_Interfaces\interfaces\target\test-classes;C:\Users\driss\Documents\NetBeansProjects\Practica_Interfaces\interfaces\target\classes;C:\Users\driss\.m2\repository\org\postgresql\postgresql\42.7.3\postgresql-42.7.3.jar;C:\Users\driss\.m2\repository\org\checkerframework\checker-qual\3.42.0\checker-qual-3.42.0.jar;C:\Users\driss\.m2\repository\org\netbeans\external\AbsoluteLayout\RELEASE270\AbsoluteLayout-RELEASE270.jar;C:\Users\driss\.m2\repository\com\formdev\flatlaf\3.6.2\flatlaf-3.6.2.jar;C:\Users\driss\.m2\repository\com\formdev\flatlaf-intellij-themes\3.6.2\flatlaf-intellij-themes-3.6.2.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\driss\AppData\Local\Temp\surefire11534097542851062825\surefirebooter-20251119153658623_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\driss\AppData\Local\Temp\surefire4609775662167982110\surefirebooter-20251124184136631_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="23.0.2+7-58"/>

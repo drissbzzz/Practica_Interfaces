@@ -101,6 +101,10 @@ public class ClientesControlador {
         mod = dao.obtenerClientePorId(id);
         return mod;        
     }
+    public void prepararInsercion(){
+        ClienteDAO dao = new ClienteDAO();
+        dao.setSecuenciaClientes();
+    }
          
                        
     /*public static void main(String[] args) {

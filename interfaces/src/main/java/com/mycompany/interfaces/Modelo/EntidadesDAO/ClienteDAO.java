@@ -46,6 +46,16 @@ public class ClienteDAO {
             return false;
         }
     }
+    // Para insertar datos, hay que poner la secuencia en su valor máximo para que el serial se actualice automáticamente
+    public void setSecuenciaClientes() {
+        String sql = "SELECT setval('\"CLIENTES_ID_CLIENTE_seq\"', (SELECT MAX(\"ID_CLIENTE\") FROM \"CLIENTES\"));";
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.executeQuery();
+            System.out.println("Secuencia CLIENTES sincronizada correctamente.");
+        } catch (SQLException e) {
+            System.err.println("Error al sincronizar la secuencia de CLIENTES: " + e.getMessage());
+        }
+    }
     //Read, nos devuelve un cliente de la base de datos mediante el id
     public Cliente obtenerClientePorId(int id) {
         String sql = "SELECT * FROM \"CLIENTES\" WHERE \"ID_CLIENTE\" = ?";

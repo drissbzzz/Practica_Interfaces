@@ -25,7 +25,8 @@ import javax.swing.JTable;
         cliCon = new ClientesControlador();
         proCon= new ProductosControlador();
         pelCon= new PeluquerasControlador();
-        serCon = new ServiciosControlador();
+        serCon = new ServiciosControlador();       
+        prepararInsercion();
     }
     
     public JTable iniciar(String tablaSeleccionada) {
@@ -69,6 +70,9 @@ import javax.swing.JTable;
     }
     public void añadirCliente(String nombre, String apellidos, String vip, int n_visitas){      
         cliCon.crearNuevo(cliCon.creacionCliente (nombre, apellidos, vip, n_visitas));
+    }
+    public void prepararInsercion(){
+        cliCon.prepararInsercion();
     }
    
 }

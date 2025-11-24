@@ -34,6 +34,21 @@ public class Vista extends javax.swing.JFrame {
         iniciarTablas();
     }
     
+    public Vista(String rol) {
+        initComponents();
+        initStyles();
+        setResizable(false);
+        iniciarTablas();
+        aplicarPermisos(rol);
+    }
+
+    private void aplicarPermisos(String rol) {
+        if (rol.equals("Empleado")) {
+            añadirBoton.setEnabled(false);
+            editarBoton.setEnabled(false);
+        }       
+    }
+    
     public void mostrarTablaBDD(JTable tabladatos){
         JScrollPane scrollPane = new JScrollPane(tabladatos);
         scrollPane.setPreferredSize(new java.awt.Dimension(693, 421));
@@ -154,6 +169,7 @@ public class Vista extends javax.swing.JFrame {
         logo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1081, 645));
 
         fondo.setBackground(new java.awt.Color(250, 235, 215));
         fondo.setMaximumSize(new java.awt.Dimension(1081, 645));
@@ -723,14 +739,19 @@ public class Vista extends javax.swing.JFrame {
     private void añadirBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirBotonActionPerformed
         // TODO add your handling code here
         IDField.setText("");
+        FechadeAltaField.setText("");
         String nombre = NombreField.getText();
         String apellidos = ApellidosField.getText();
         String vip = VipField.getText();
-        int visitas = Integer.parseInt(NDVisitasField.getText());
-
-        ctrl.añadirCliente(nombre, apellidos, vip, visitas);
-        String seleccion = (String) seleccionTabla.getSelectedItem();
-        mostrarTablaBDD(ctrl.iniciar(seleccion));
+        int visitas = 0;
+        visitas = Integer.parseInt(NDVisitasField.getText());
+        if (nombre.equals("") || apellidos.equals("") || vip.equals("") || visitas == 0) {
+            JOptionPane.showMessageDialog(null, "Se deben rellenar nombre, apellidos, vip y numero de visitas");
+        } else {
+            ctrl.añadirCliente(nombre, apellidos, vip, visitas);
+            String seleccion = (String) seleccionTabla.getSelectedItem();
+            mostrarTablaBDD(ctrl.iniciar(seleccion));
+        }
     }//GEN-LAST:event_añadirBotonActionPerformed
 
     private void navGeneralFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_navGeneralFocusGained
@@ -791,6 +812,8 @@ public class Vista extends javax.swing.JFrame {
     private javax.swing.JLabel tituloSCrit;
     private javax.swing.JLabel tituloServiciosR;
     // End of variables declaration//GEN-END:variables
+
+
 
 
 }

@@ -5,8 +5,11 @@ controlador\ProductosControlador.class
 com\mycompany\interfaces\Vista\Vista.class
 com\mycompany\interfaces\Vista\Vista$9.class
 com\mycompany\interfaces\Vista\Vista$5.class
+controlador\ControladorIniciodeSesion.class
+com\mycompany\interfaces\Modelo\UsuarioPrueba.class
 com\mycompany\interfaces\Modelo\Productos.class
 com\mycompany\interfaces\Modelo\EntidadesDAO\TicketDAO.class
+com\mycompany\interfaces\Vista\Login$3.class
 com\mycompany\interfaces\Vista\Vista$3.class
 com\mycompany\interfaces\Modelo\EntidadesDAO\ClienteDAO.class
 com\mycompany\interfaces\Vista\Vista$1.class
@@ -22,6 +25,7 @@ com\mycompany\interfaces\Vista\Vista$11.class
 com\mycompany\interfaces\Vista\Vista$4.class
 controlador\ClientesControlador.class
 com\mycompany\interfaces\Modelo\Servicios.class
+com\mycompany\interfaces\Vista\Login$2.class
 com\mycompany\interfaces\Vista\Login.class
 com\mycompany\interfaces\Vista\Vista$10.class
 controlador\PeluquerasControlador.class

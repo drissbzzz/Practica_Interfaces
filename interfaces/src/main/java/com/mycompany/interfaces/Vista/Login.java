@@ -5,6 +5,10 @@
 package com.mycompany.interfaces.Vista;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import com.mycompany.interfaces.Modelo.UsuarioPrueba;
+import controlador.ControladorIniciodeSesion;
+import static java.awt.Color.black;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,8 +19,21 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
+    
+    UsuarioPrueba user = new UsuarioPrueba();
+    ControladorIniciodeSesion ctrl = new ControladorIniciodeSesion(user);
+    
     public Login() {
         initComponents();
+        initStyles();
+        setLocationRelativeTo(null);
+    }
+    
+    public void initStyles(){
+        botonIniciar.putClientProperty( "JButton.buttonType", "roundRect" );
+        botonIniciar.putClientProperty( "FlatLaf.styleClass", "h4" );
+        seleccionRol.putClientProperty("FlatLaf.styleClass", "h4");
+        seleccionRol.putClientProperty( "JComponent.roundRect", true );
     }
 
     /**
@@ -34,16 +51,24 @@ public class Login extends javax.swing.JFrame {
         LogoContainer = new javax.swing.JPanel();
         Logo = new javax.swing.JLabel();
         PanelCred = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jPanel1 = new javax.swing.JPanel();
+        seleccionRol = new javax.swing.JComboBox<>();
+        separacion1 = new javax.swing.JPanel();
+        separacion2 = new javax.swing.JPanel();
+        separacion3 = new javax.swing.JPanel();
+        botonIniciar = new javax.swing.JButton();
+        usuario = new javax.swing.JTextField();
+        passField = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         Body.setBackground(new java.awt.Color(194, 179, 177));
+        Body.setMaximumSize(new java.awt.Dimension(1389, 653));
+        Body.setMinimumSize(new java.awt.Dimension(1389, 653));
 
         Header.setBackground(new java.awt.Color(255, 250, 240));
         Header.setMaximumSize(new java.awt.Dimension(1081, 237));
+        Header.setMinimumSize(new java.awt.Dimension(1081, 237));
 
         HeaderImage.setIcon(new javax.swing.ImageIcon("C:\\Users\\driss\\Documents\\NetBeansProjects\\Practica_Interfaces\\interfaces\\src\\main\\java\\com\\mycompany\\interfaces\\Vista\\images\\Header.png")); // NOI18N
 
@@ -59,6 +84,8 @@ public class Login extends javax.swing.JFrame {
         );
 
         LogoContainer.setBackground(new java.awt.Color(247, 245, 240));
+        LogoContainer.setMaximumSize(new java.awt.Dimension(522, 420));
+        LogoContainer.setMinimumSize(new java.awt.Dimension(522, 420));
 
         Logo.setBackground(new java.awt.Color(255, 250, 240));
         Logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\driss\\Documents\\NetBeansProjects\\Practica_Interfaces\\interfaces\\src\\main\\java\\com\\mycompany\\interfaces\\Vista\\images\\logoLogin.png")); // NOI18N
@@ -80,41 +107,114 @@ public class Login extends javax.swing.JFrame {
         );
 
         PanelCred.setBackground(new java.awt.Color(217, 220, 237));
+        PanelCred.setMaximumSize(new java.awt.Dimension(561, 318));
+        PanelCred.setMinimumSize(new java.awt.Dimension(561, 318));
+        PanelCred.setPreferredSize(new java.awt.Dimension(561, 318));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        seleccionRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empleado", "Administrador" }));
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(500, 2));
+        separacion1.setPreferredSize(new java.awt.Dimension(500, 2));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+        javax.swing.GroupLayout separacion1Layout = new javax.swing.GroupLayout(separacion1);
+        separacion1.setLayout(separacion1Layout);
+        separacion1Layout.setHorizontalGroup(
+            separacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        separacion1Layout.setVerticalGroup(
+            separacion1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 2, Short.MAX_VALUE)
         );
+
+        separacion2.setPreferredSize(new java.awt.Dimension(500, 2));
+
+        javax.swing.GroupLayout separacion2Layout = new javax.swing.GroupLayout(separacion2);
+        separacion2.setLayout(separacion2Layout);
+        separacion2Layout.setHorizontalGroup(
+            separacion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        separacion2Layout.setVerticalGroup(
+            separacion2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
+        );
+
+        separacion3.setPreferredSize(new java.awt.Dimension(500, 2));
+
+        javax.swing.GroupLayout separacion3Layout = new javax.swing.GroupLayout(separacion3);
+        separacion3.setLayout(separacion3Layout);
+        separacion3Layout.setHorizontalGroup(
+            separacion3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        separacion3Layout.setVerticalGroup(
+            separacion3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 2, Short.MAX_VALUE)
+        );
+
+        botonIniciar.setText("Confirmar");
+        botonIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonIniciarActionPerformed(evt);
+            }
+        });
+
+        usuario.setForeground(new java.awt.Color(204, 204, 204));
+        usuario.setText("Usuario");
+        usuario.setMaximumSize(new java.awt.Dimension(64, 22));
+        usuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usuarioFocusGained(evt);
+            }
+        });
+        usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usuarioActionPerformed(evt);
+            }
+        });
+
+        passField.setMaximumSize(new java.awt.Dimension(64, 22));
 
         javax.swing.GroupLayout PanelCredLayout = new javax.swing.GroupLayout(PanelCred);
         PanelCred.setLayout(PanelCredLayout);
         PanelCredLayout.setHorizontalGroup(
             PanelCredLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelCredLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(PanelCredLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(307, Short.MAX_VALUE))
+                    .addGroup(PanelCredLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(PanelCredLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(passField, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                            .addComponent(separacion1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                            .addComponent(separacion2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                            .addComponent(separacion3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
+                            .addComponent(usuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(PanelCredLayout.createSequentialGroup()
+                                .addComponent(botonIniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28))))
+                    .addGroup(PanelCredLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(seleccionRol, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(5, Short.MAX_VALUE))
         );
         PanelCredLayout.setVerticalGroup(
             PanelCredLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelCredLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE)
+                .addComponent(seleccionRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(separacion1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addComponent(separacion2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(passField, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(separacion3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(botonIniciar)
+                .addGap(60, 60, 60))
         );
 
         javax.swing.GroupLayout BodyLayout = new javax.swing.GroupLayout(Body);
@@ -122,12 +222,11 @@ public class Login extends javax.swing.JFrame {
         BodyLayout.setHorizontalGroup(
             BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BodyLayout.createSequentialGroup()
-                .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BodyLayout.createSequentialGroup()
-                        .addGap(520, 520, 520)
-                        .addComponent(PanelCred, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(LogoContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(PanelCred, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(LogoContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         BodyLayout.setVerticalGroup(
@@ -155,21 +254,36 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        FlatLightLaf.setup();
-       
+    private void botonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIniciarActionPerformed
+        // TODO add your handling code here:
+        String user = usuario.getText();
+        String pass = new String(passField.getPassword());
+        String rol  = seleccionRol.getSelectedItem().toString();
+        boolean comprobador = ctrl.autenticar(user, pass, rol);
+        
+        if (comprobador) {
+            JOptionPane.showMessageDialog(this, "Inicio de sesión correcto");
+            Vista vistaPrincipal = new Vista(rol);
+            vistaPrincipal.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
+            usuario.setText("Usuario");
+            passField.setText("");
+        }
+    }//GEN-LAST:event_botonIniciarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Login().setVisible(true);
-            }
-        });
-    }
+    private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_usuarioActionPerformed
+
+    private void usuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usuarioFocusGained
+        // TODO add your handling code here:
+        usuario.setText("");
+        usuario.setForeground(black);
+    }//GEN-LAST:event_usuarioFocusGained
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Body;
@@ -178,7 +292,12 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel Logo;
     private javax.swing.JPanel LogoContainer;
     private javax.swing.JPanel PanelCred;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton botonIniciar;
+    private javax.swing.JPasswordField passField;
+    private javax.swing.JComboBox<String> seleccionRol;
+    private javax.swing.JPanel separacion1;
+    private javax.swing.JPanel separacion2;
+    private javax.swing.JPanel separacion3;
+    private javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables
 }
