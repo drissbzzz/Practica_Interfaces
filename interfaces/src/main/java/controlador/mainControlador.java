@@ -19,15 +19,17 @@ import javax.swing.JTable;
     private ProductosControlador proCon;
     private PeluquerasControlador pelCon;
     private ServiciosControlador serCon; 
-   
+    private SimuladorControlador simCon;
     
     public mainControlador(){
         cliCon = new ClientesControlador();
         proCon= new ProductosControlador();
         pelCon= new PeluquerasControlador();
-        serCon = new ServiciosControlador();       
+        serCon = new ServiciosControlador();
+        simCon = new SimuladorControlador();        
         prepararInsercion();
     }
+    
     
     public JTable iniciar(String tablaSeleccionada) {
         
@@ -64,6 +66,23 @@ import javax.swing.JTable;
     
     public Cliente comprobarDatos(int id){
         return cliCon.comprobarCliente(id);        
+    }
+    
+    public void pausarSimulacionDesdeVista() {
+        if (simCon != null) simCon.pausarReanudar();
+    }
+    
+    public void detenerSimulacionDesdeVista() {
+        if (simCon != null) simCon.detenerSimulacion();
+    }
+    
+    public void iniciarListener(SimulacionListener l){
+        simCon.setListener(l);
+    }
+    public void comenzarSimulacion() {
+        if (simCon != null) { 
+            simCon.iniciarSimulacion();
+        }
     }
     public void modificacionCliente(int id, String nombre, String apellidos, String vip, int n_visitas, LocalDateTime fecha_alta){      
         cliCon.modificarDatos(cliCon.manipulacionCliente(id, nombre, apellidos, vip, n_visitas, fecha_alta));

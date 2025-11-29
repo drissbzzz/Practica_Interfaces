@@ -21,6 +21,7 @@ public class main {
         /* Set the Nimbus look and feel */
         FlatLightLaf.setup();
         UIManager.put( "TabbedPane.selectedBackground", Color.white );
+        UIManager.put( "ProgressBar.arc", 999 );
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Login().setVisible(true));
