@@ -65,6 +65,9 @@ public class ServiciosDAO {
     }
     public List<Servicios> getAll() {
         List<Servicios> lista = new ArrayList<>();
+        if (conn == null) {
+            return lista;
+        }
         try {
             String sql = "SELECT * FROM \"SERVICIOS\"";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -84,6 +87,9 @@ public class ServiciosDAO {
     }
     public List<Servicios> getMasRentables() {
         List<Servicios> lista = new ArrayList<>();
+        if (conn == null) {
+            return lista;
+        }
         try {
             String sql = "SELECT \"SERVICIOS\".\"ID_SERVICIO\",\"SERVICIOS\".\"NOMBRE\", SUM(\"TICKET\".\"IMPORTE\") AS \"INGRESOS_TOTALES\"\n"
                     + "FROM \"SERVICIOS\"\n"

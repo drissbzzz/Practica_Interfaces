@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author alumno
+ * @author driss
  */
 public class Citas {
     

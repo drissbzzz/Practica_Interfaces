@@ -18,7 +18,8 @@ import java.util.List;
  *
  * @author driss
  */
-public class ClienteDAO {
+public class ClienteDAO { //Clases DAO: DATA ACCESS OBJECT, son las únicas clases que pueden interactuar con la base de datos
+    //mediante la conexion
     
      private Connection conn;
 
@@ -78,8 +79,12 @@ public class ClienteDAO {
         return null;
     }
     
+    //Guardamos en una lista todos los clientes vips que hay en la base de datos
     public List<Cliente> getVips(){
         List<Cliente> lista = new ArrayList<>();
+        if (conn == null) {
+            return lista;
+        }
         try {
             String sql = "SELECT * FROM \"CLIENTES\" WHERE \"VIP\" IS TRUE ORDER BY \"ID_CLIENTE\"";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -100,8 +105,12 @@ public class ClienteDAO {
         return lista;
     }
     
+    //Guardamos en una lista todos los clientes que hay en la base de datos
     public List<Cliente> getAll() {
         List<Cliente> lista = new ArrayList<>();
+        if (conn == null) {
+            return lista;
+        }
         try {
             String sql = "SELECT * FROM \"CLIENTES\"ORDER BY \"ID_CLIENTE\"";
             PreparedStatement ps = conn.prepareStatement(sql);

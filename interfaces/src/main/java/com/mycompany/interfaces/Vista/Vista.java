@@ -4,6 +4,7 @@
  */
 package com.mycompany.interfaces.Vista;
 
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.mycompany.interfaces.Modelo.Cliente;
 import controlador.SimulacionListener;
@@ -20,48 +21,57 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author alumno
+ * @author driss
  */
 public class Vista extends javax.swing.JFrame implements SimulacionListener {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Vista.class.getName());
-    mainControlador ctrl = new mainControlador();
+    mainControlador ctrl = new mainControlador(); //Conectamos el controlador
     /**
      * Creates new form Vista
      */
-    public Vista() {
+    public Vista() { //Metodo sin rol aplicado - obsoleto
         initComponents();
-        initStyles();
+        initStyles(); 
         setResizable(false);
-        iniciarTablas();
-        ctrl.iniciarListener(this);
+        try{ //Aseguramos que la interfaz arranque aun si haber una conexion con la base de datos
+            iniciarTablas();
+        }catch(Exception e){
+            javax.swing.JOptionPane.showMessageDialog(null, "No se ha podido conectar con la Base de Datos.","Advertencia de Conexión",javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
+        ctrl.iniciarListener(this);// Se le pasa el listener al controlador para conectar todo
     }
     
-    public Vista(String rol) {
+    public Vista(String rol) { //Aqui ya aplique la logica del rol para el Extra del login
         initComponents();
         initStyles();
         setResizable(false);
-        iniciarTablas();
         aplicarPermisos(rol);
+        try{
+            iniciarTablas();
+        }catch(Exception e){
+            javax.swing.JOptionPane.showMessageDialog(null, "No se ha podido conectar con la Base de Datos.","Advertencia de Conexión",javax.swing.JOptionPane.WARNING_MESSAGE);
+        }
         ctrl.iniciarListener(this);
     }
 
-    private void aplicarPermisos(String rol) {
+    private void aplicarPermisos(String rol) { //Desactivamos los botones de la manipulacion de datos para el rol de empleado
         if (rol.equals("Empleado")) {
             añadirBoton.setEnabled(false);
-            editarBoton.setEnabled(false);
+            exportBoton.setEnabled(false);
         }       
     }
     
-    public void mostrarTablaBDD(JTable tabladatos){
-        JScrollPane scrollPane = new JScrollPane(tabladatos);
-        scrollPane.setPreferredSize(new java.awt.Dimension(693, 421));
-        panelTabla.removeAll();
-        panelTabla.add(scrollPane, BorderLayout.CENTER);
-        panelTabla.revalidate();
-        panelTabla.repaint();
+    public void mostrarTablaBDD(JTable tabladatos){ //Metodo que muestra la tabla de la seccion Gestion 
+        JScrollPane scrollPane = new JScrollPane(tabladatos); //Creamos un scrollpane para navegar por la tabla en caso de necesitarlo y para poder insertarla
+        scrollPane.setPreferredSize(new java.awt.Dimension(693, 421)); //Colocamos el tamaño para que no salga de su panel ni se extienda
+        panelTabla.removeAll();//Eliminamos todo lo previo
+        panelTabla.add(scrollPane, BorderLayout.CENTER);//Se pega la tabla y se le señala el scrollPane que usara y el tipo de layout
+        panelTabla.revalidate(); //Recalcula la estructura para evitar errores al añadir un nuevo elemento
+        panelTabla.repaint(); // Pinta lo añadido nuevo, en este caso la Tabla
     }
-    public void mostrarTablaVips(JTable tabladatos){
+    public void mostrarTablaVips(JTable tabladatos){//Metodo que muestra la tabla de la seccion DatosCriticos: TablaVips 
+        tablaCV.setLayout(new BorderLayout());
         JScrollPane scrollPane = new JScrollPane(tabladatos);
         scrollPane.setPreferredSize(new java.awt.Dimension(328, 428));
         tablaCV.removeAll();
@@ -69,7 +79,8 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
         tablaCV.revalidate();
         tablaCV.repaint();   
     }
-    public void mostrarTablaSMR(JTable tabladatos){
+    public void mostrarTablaSMR(JTable tabladatos){//Metodo que muestra la tabla de la seccion DatosCriticos: Servicios mas rentables 
+        tablaSMR.setLayout(new BorderLayout());
         JScrollPane scrollPane = new JScrollPane(tabladatos);
         scrollPane.setPreferredSize(new java.awt.Dimension(328, 428));
         tablaSMR.removeAll();
@@ -77,7 +88,8 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
         tablaSMR.revalidate();
         tablaSMR.repaint();   
     }
-    public void mostrarTablaSC(JTable tabladatos){
+    public void mostrarTablaSC(JTable tabladatos){//Metodo que muestra la tabla de la seccion DatosCriticos: Srock Critico
+        tablaSC.setLayout(new BorderLayout());
         JScrollPane scrollPane = new JScrollPane(tabladatos);
         scrollPane.setPreferredSize(new java.awt.Dimension(328, 428));
         tablaSC.removeAll();
@@ -86,17 +98,17 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
         tablaSC.repaint();   
     }
 
-    public void mostrarCliente(Cliente c) {
+    public void mostrarCliente(Cliente c) { //Metodo para que aparezcan los datos del cliente cuando introducimos su ID
         NombreField.setText(c.getNombre());
         ApellidosField.setText(c.getApellidos());
         VipField.setText(String.valueOf(c.isVip()));
         NDVisitasField.setText(String.valueOf(c.getN_visitas()));
         FechadeAltaField.setText(String.valueOf(c.getFecha_alta()));             
     }
-    public void initStyles(){
+    public void initStyles(){ // Estilos usados gracias al Look and Feel 
         añadirBoton.putClientProperty( "JButton.buttonType", "roundRect" );
-        editarBoton.putClientProperty( "JButton.buttonType", "roundRect" );
-        editarBoton.putClientProperty( "FlatLaf.styleClass", "h4" );
+        exportBoton.putClientProperty( "JButton.buttonType", "roundRect" );
+        exportBoton.putClientProperty( "FlatLaf.styleClass", "h4" );
         añadirBoton.putClientProperty( "FlatLaf.styleClass", "h4" );
         seleccionTabla.putClientProperty("FlatLaf.styleClass", "h4");
         seleccionTabla.putClientProperty( "JComponent.roundRect", true );
@@ -112,40 +124,37 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
         tituloSCrit.putClientProperty( "FlatLaf.style", "font: bold " );
         stop.putClientProperty( "JButton.buttonType", "roundRect" );
         start.putClientProperty( "JButton.buttonType", "roundRect" );
-        pause.putClientProperty( "JButton.buttonType", "roundRect" );
+        pause.putClientProperty( "JButton.buttonType", "roundRect" );      
     }
     
-    public void iniciarTablas(){
-        tablaCV.setLayout(new BorderLayout());
-        JTable tablaVips = ctrl.iniciarVips();
+    public void iniciarTablas(){ //Creamos las tres tablas del apartado Datos Criticos
+        JTable tablaVips = ctrl.iniciarVips(); //Se obtiene la tabla del controlador y se pasa al metodo de cada una
         mostrarTablaVips(tablaVips);
-        tablaSMR.setLayout(new BorderLayout());
         JTable tablaSMR = ctrl.iniciarSMR();
         mostrarTablaSMR(tablaSMR);
-        tablaSC.setLayout(new BorderLayout());
         JTable tablaSC = ctrl.iniciarSC();
         mostrarTablaSC(tablaSC);
     }
     
     //Metodos para la simulacion 
-     @Override
-    public void hayNuevoMensaje(String mensaje) {
+     @Override //Implementados mediante la interfaz del SimulacionListener
+    public void hayNuevoMensaje(String mensaje) { //Recibimos el mensaje
         // Evitamos que se congele la interfaz usando el invokeLater
         SwingUtilities.invokeLater(() -> {
-            areaLog.append(mensaje + "\n");
-            areaLog.setCaretPosition(areaLog.getDocument().getLength());
+            areaLog.append(mensaje + "\n"); //Añadimos en el log el mensaje y saltamos de pagina
+            areaLog.setCaretPosition(areaLog.getDocument().getLength()); //Ponemos el cursor en la siguiente linea para que no lo escriba todo junto
         });
     }
 
     @Override
-    public void hayCambioZona(String zona, String cliente, String peluquera, int porcentaje) {
+    public void hayCambioZona(String zona, String cliente, String peluquera, int porcentaje) { //Siempre que ocurra un cambio en la zona
         SwingUtilities.invokeLater(() -> {
             // Un Switch para saber qué barra mover según lo que manda el hilo
             switch (zona) {
                 case "Lavado":
-                    cliLavField.setText(cliente);
-                    pelLavField.setText(peluquera);
-                    barraLavado.setValue(porcentaje);
+                    cliLavField.setText(cliente); //Que cliente esta en esa zona
+                    pelLavField.setText(peluquera); //Que peluquera esta actuando en esa zona
+                    barraLavado.setValue(porcentaje); //Que porcentaje de la barra llenar
                     break;
                 case "Corte":
                     cliCorField.setText(cliente);
@@ -167,7 +176,7 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
     }
 
     @Override
-    public void hayCambioPeluquera(int id, int porcentaje, boolean durmiendo) {
+    public void hayCambioPeluquera(int id, int porcentaje, boolean durmiendo) { //Si las peluqueras cambian de estado
         SwingUtilities.invokeLater(() -> {
             javax.swing.JProgressBar barra = null; //Creamos una barra para saber que vamos a trabajar en ella
 
@@ -186,13 +195,12 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
     }
     @Override
     public void actualizarEstadisticas(int atendidos, int pendientes, int peluquerasActivas, int peluquerasSiesta, double ganancias, int serviciosCompletados, String tiempoMedia) {
-        SwingUtilities.invokeLater(() -> {
+        SwingUtilities.invokeLater(() -> { 
             // Actualizamos los campos de texto
             cliAteField.setText(String.valueOf(atendidos));
             cliPenField.setText(String.valueOf(pendientes));
             pelActField.setText(String.valueOf(peluquerasActivas));
-            pelSieField.setText(String.valueOf(peluquerasSiesta));
-            
+            pelSieField.setText(String.valueOf(peluquerasSiesta));          
             GananciasField.setText(""+ganancias);          
             ServiciosField.setText(String.valueOf(serviciosCompletados));                      
             TiemposField.setText(tiempoMedia); 
@@ -270,7 +278,7 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
         PanelGestion = new javax.swing.JPanel();
         separacionGestion = new javax.swing.JPanel();
         añadirBoton = new javax.swing.JButton();
-        editarBoton = new javax.swing.JButton();
+        exportBoton = new javax.swing.JButton();
         panelEdicion = new javax.swing.JPanel();
         NombreLabel = new javax.swing.JLabel();
         IDLabel = new javax.swing.JLabel();
@@ -285,6 +293,7 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
         VipField = new javax.swing.JTextField();
         NDVisitasField = new javax.swing.JTextField();
         FechadeAltaField = new javax.swing.JTextField();
+        editarBoton = new javax.swing.JButton();
         DCriticos = new javax.swing.JPanel();
         ServiciosMasRentablesPanel = new javax.swing.JPanel();
         tituloServiciosR = new javax.swing.JLabel();
@@ -297,6 +306,7 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
         tituloSCrit = new javax.swing.JLabel();
         tablaSC = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
+        temaBoton = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -818,11 +828,11 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
             }
         });
 
-        editarBoton.setBackground(new java.awt.Color(255, 250, 240));
-        editarBoton.setText("Editar Datos");
-        editarBoton.addActionListener(new java.awt.event.ActionListener() {
+        exportBoton.setBackground(new java.awt.Color(255, 250, 240));
+        exportBoton.setText("Exportar a CSV");
+        exportBoton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                editarBotonActionPerformed(evt);
+                exportBotonActionPerformed(evt);
             }
         });
 
@@ -938,6 +948,14 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
                 .addGap(32, 32, 32))
         );
 
+        editarBoton.setBackground(new java.awt.Color(255, 250, 240));
+        editarBoton.setText("Editar Datos");
+        editarBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarBotonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout PanelGestionLayout = new javax.swing.GroupLayout(PanelGestion);
         PanelGestion.setLayout(PanelGestionLayout);
         PanelGestionLayout.setHorizontalGroup(
@@ -945,12 +963,16 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
             .addGroup(PanelGestionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelGestionLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(editarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(separacionGestion, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
-                    .addComponent(panelEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(añadirBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelGestionLayout.createSequentialGroup()
+                        .addComponent(exportBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(editarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelGestionLayout.createSequentialGroup()
+                        .addGroup(PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(añadirBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         PanelGestionLayout.setVerticalGroup(
@@ -963,7 +985,9 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelEdicion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(editarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(PanelGestionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(exportBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editarBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1060,7 +1084,7 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
         );
 
         jButton1.setBackground(new java.awt.Color(242, 242, 242));
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\driss\\Documents\\NetBeansProjects\\Practica_Interfaces\\interfaces\\src\\main\\java\\com\\mycompany\\interfaces\\Vista\\images\\boton.png")); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/boton.png"))); // NOI18N
         jButton1.setBorderPainted(false);
         jButton1.setContentAreaFilled(false);
         jButton1.setPreferredSize(new java.awt.Dimension(25, 25));
@@ -1165,7 +1189,14 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
 
         navGeneral.addTab("Datos Críticos", DCriticos);
 
-        logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\driss\\Documents\\NetBeansProjects\\Practica_Interfaces\\interfaces\\src\\main\\java\\com\\mycompany\\interfaces\\Vista\\images\\icono.png")); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icono.png"))); // NOI18N
+
+        temaBoton.setText("Dark Mode");
+        temaBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                temaBotonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout fondoLayout = new javax.swing.GroupLayout(fondo);
         fondo.setLayout(fondoLayout);
@@ -1175,13 +1206,17 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
             .addGroup(fondoLayout.createSequentialGroup()
                 .addGap(388, 388, 388)
                 .addComponent(logo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(temaBoton, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
         fondoLayout.setVerticalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(fondoLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(temaBoton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(navGeneral, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1203,45 +1238,37 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void editarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarBotonActionPerformed
-        // TODO add your handling code here: 
-        if (IDField.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "No se referió a ningún cliente. Debe añadir el ID objetivo");
-            IDField.setText("");
-            NombreField.setText("");
-            ApellidosField.setText("");
-            VipField.setText("");
-            NDVisitasField.setText("");
-            FechadeAltaField.setText("");
-        } else {
-            int id_cliente = Integer.parseInt(IDField.getText());
-            String nombre = NombreField.getText();
-            String apellidos = ApellidosField.getText();
-            String vip = VipField.getText();
-            int visitas = Integer.parseInt(NDVisitasField.getText());
-            LocalDateTime fecha = LocalDateTime.parse(FechadeAltaField.getText());
+    private void exportBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBotonActionPerformed
+        // logica de la exportacion de datos
+        String tablaSeleccionada = (String) seleccionTabla.getSelectedItem(); //Adquirimos el nombre de la tabla seleccionada
+        
+        if (tablaSeleccionada == null || tablaSeleccionada.trim().isEmpty()) { //Por si acaso esta vacia
+            javax.swing.JOptionPane.showMessageDialog(this, "Ninguna tabla seleccionada");
+            return;
+        }
+        boolean resultado = ctrl.exportarTabla(tablaSeleccionada); //Almacenamos el resultado del metodo del controlador al que le hemos pasado el nombre por parametro
 
-            ctrl.modificacionCliente(id_cliente, nombre, apellidos, vip, visitas, fecha);
-            String seleccion = (String) seleccionTabla.getSelectedItem();
-            mostrarTablaBDD(ctrl.iniciar(seleccion));
-        }      
-    }//GEN-LAST:event_editarBotonActionPerformed
+        if (resultado) { //Comprobamos el resultado y avisamos al usuario segun lo que paso
+            javax.swing.JOptionPane.showMessageDialog(this,"Archivo " + tablaSeleccionada + ".csv generado correctamente","Exito",javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this,"Hubo un error al exportar.","Error",javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_exportBotonActionPerformed
 
     private void seleccionTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionTablaActionPerformed
         
-        String seleccion =(String)seleccionTabla.getSelectedItem();
-        //System.out.println(seleccion);
-        mostrarTablaBDD(ctrl.iniciar(seleccion));
+        String seleccion =(String)seleccionTabla.getSelectedItem(); //Adquirimos el nombre de la tabla seleccionada
+        mostrarTablaBDD(ctrl.iniciar(seleccion)); //Usamos el metodo iniciar del controlador para mostrar la tabla seleccionada
         
        
     }//GEN-LAST:event_seleccionTablaActionPerformed
 
     private void IDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDFieldActionPerformed
-        // TODO add your handling code here:
-        if (ctrl.comprobarDatos(Integer.parseInt(IDField.getText())) != null) {
+        // "Buscador" del cliente segun el ID
+        if (ctrl.comprobarDatos(Integer.parseInt(IDField.getText())) != null) { //Usaremos los datos si hemos encontrado un cliente con ese Id
             int id = Integer.parseInt(IDField.getText());
-            mostrarCliente(ctrl.comprobarDatos(id));
-        } else {
+            mostrarCliente(ctrl.comprobarDatos(id)); //Usamos el metodo mostrarCliente mediante el metodo comprobarDatos del controlador
+        } else { //Si es nulo, vciamos todo y avisamos
             JOptionPane.showMessageDialog(null, "No existe un cliente con ese ID");
             IDField.setText("");
             NombreField.setText("");
@@ -1274,25 +1301,25 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
 
     private void añadirBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirBotonActionPerformed
         // TODO add your handling code here
-        IDField.setText("");
-        FechadeAltaField.setText("");
+        IDField.setText(""); //Nuestra base de datos funciona con seriales con lo cual el id no se introduce
+        FechadeAltaField.setText("");// La fecha de alta tiene que estar vacia para poner la de el momento en el que se pulsa el boton
         String nombre = NombreField.getText();
         String apellidos = ApellidosField.getText();
         String vip = VipField.getText();
         int visitas = 0;
         visitas = Integer.parseInt(NDVisitasField.getText());
-        if (nombre.equals("") || apellidos.equals("") || vip.equals("") || visitas == 0) {
+        if (nombre.equals("") || apellidos.equals("") || vip.equals("") || visitas == 0) { //Si alguno de los campos necesarios esta vacio
             JOptionPane.showMessageDialog(null, "Se deben rellenar nombre, apellidos, vip y numero de visitas");
-        } else {
-            ctrl.añadirCliente(nombre, apellidos, vip, visitas);
+        } else { //Sino, se continua con el proceso
+            ctrl.añadirCliente(nombre, apellidos, vip, visitas); // se llama al controlador y se le entregan los datos que debe añadir
             String seleccion = (String) seleccionTabla.getSelectedItem();
-            mostrarTablaBDD(ctrl.iniciar(seleccion));
+            mostrarTablaBDD(ctrl.iniciar(seleccion));//Actualizamos la tabla
         }
     }//GEN-LAST:event_añadirBotonActionPerformed
 
     private void navGeneralFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_navGeneralFocusGained
         // TODO add your handling code here:
-        
+        iniciarTablas();
     }//GEN-LAST:event_navGeneralFocusGained
 
     private void DCriticosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_DCriticosFocusGained
@@ -1306,8 +1333,8 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
 
     private void pauseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pauseActionPerformed
         // TODO add your handling code here:
-        ctrl.pausarSimulacionDesdeVista(); // Tienes que crear este puente en mainControlador       
-        // Cambio estético del texto
+        ctrl.pausarSimulacionDesdeVista(); //Se llama al metodo pausar del controlador  
+        // Cambio estético del boton
         if (pause.isSelected()) {
             pause.setText("Reanudar");
         } else {
@@ -1322,15 +1349,15 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
     private void startActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startActionPerformed
         // TODO add your handling code here:       
         start.setEnabled(false);
-        start.setText("Funcionando...");
-        ctrl.comenzarSimulacion();  
-        pause.setEnabled(true);
-        stop.setEnabled(true);
+        start.setText("Funcionando..."); //Ajustes esteticos del boton y desactivacion mientras eta funcionando
+        ctrl.comenzarSimulacion(); // llamamos al metodo comenzar simulacion del controlador  
+        pause.setEnabled(true); 
+        stop.setEnabled(true); //Activamos la posibilidad de pausar y parar la simulacion
     }//GEN-LAST:event_startActionPerformed
 
     private void stopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopActionPerformed
         // TODO add your handling code here:
-        ctrl.detenerSimulacionDesdeVista(); // Puente en mainControlador
+        ctrl.detenerSimulacion(); // Se llama al metodo parar para que todo se paralice y resetee
         
         // Reseteamos botones
         start.setEnabled(true);
@@ -1356,13 +1383,96 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
         barraSiesta3.setValue(0);
         cliAteField.setText("");
         cliPenField.setText(""); 
-        pelActField.setText(""); // Vuelven a estar 3 activas
+        pelActField.setText("");
         pelSieField.setText("");
         GananciasField.setText("");
         TiemposField.setText("");
         ServiciosField.setText("");
         areaLog.setText("");
     }//GEN-LAST:event_stopActionPerformed
+
+    private void editarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarBotonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editarBotonActionPerformed
+
+    private void temaBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_temaBotonActionPerformed
+        // EXTRE: Moso Oscuro
+        try {
+            if (temaBoton.isSelected()) {
+                UIManager.setLookAndFeel(new com.formdev.flatlaf.FlatDarkLaf());// Si el boton esta seleccionado, se sustituye el Laf por el modo Oscuro
+                temaBoton.setText("Modo Claro"); //Cambiamos el boton
+                
+                //Para que se aplique el laf hay que poner todos los fondos porque si no, nuestra orden prevalecerá ante el tema
+                // Contenedores Principales
+                fondo.setBackground(null);
+                navGeneral.setBackground(null);
+                
+                // Pestaña Simulación
+                Simulacion.setBackground(null);
+                VistaPeluquera.setBackground(null);
+                Stats.setBackground(null);
+                
+                // Pestaña Gestión
+                Gestion.setBackground(null);
+                BDDPanel.setBackground(null);
+                PanelGestion.setBackground(null);
+                panelTabla.setBackground(null);
+                panelEdicion.setBackground(null);
+                separacionTablas.setBackground(null);
+                separacionGestion.setBackground(null);
+                
+                // Botones y Combos de Gestión 
+                añadirBoton.setBackground(null);
+                editarBoton.setBackground(null);
+                seleccionTabla.setBackground(null);
+
+                // Pestaña Datos Críticos
+                DCriticos.setBackground(null);
+                ServiciosMasRentablesPanel.setBackground(null);
+                ClientesVIPPanel.setBackground(null);
+                ProdStockCriticoPanel.setBackground(null);
+                
+                // Paneles internos de las tablas (Importante para que no se vea blanco detrás)
+                tablaSMR.setBackground(null);
+                tablaCV.setBackground(null);
+                tablaSC.setBackground(null);
+                
+            } else {
+                UIManager.setLookAndFeel(new FlatLightLaf()); //Volvemos al antiguo laf
+                temaBoton.setText("Modo Oscuro");//Texto del boton
+                Color colorCrema = new Color(250, 235, 215); //Definimos los colores para no estar escribiendolos todo el rato
+                Color blanco = new Color(255, 250, 240);
+                //Le ponemos a todos los elementos los colores que tenian por defecto
+                fondo.setBackground(colorCrema);
+                VistaPeluquera.setBackground(colorCrema);
+                Stats.setBackground(colorCrema);
+                BDDPanel.setBackground(colorCrema);
+                PanelGestion.setBackground(colorCrema);
+                ServiciosMasRentablesPanel.setBackground(colorCrema);
+                ClientesVIPPanel.setBackground(colorCrema);
+                ProdStockCriticoPanel.setBackground(colorCrema);
+                navGeneral.setBackground(blanco);
+                Simulacion.setBackground(blanco);
+                Gestion.setBackground(blanco);
+                DCriticos.setBackground(blanco);
+                panelTabla.setBackground(blanco);
+                panelEdicion.setBackground(blanco);
+                separacionTablas.setBackground(blanco);
+                separacionGestion.setBackground(blanco);
+                tablaSMR.setBackground(blanco);
+                tablaCV.setBackground(blanco);
+                tablaSC.setBackground(blanco);
+                añadirBoton.setBackground(blanco);
+                editarBoton.setBackground(blanco);
+                seleccionTabla.setBackground(blanco);
+            }
+            SwingUtilities.updateComponentTreeUI(this);//Es la forma de avisar de que hemos cambiado de Look and Feel
+            this.pack();//Reajusta tamaños en caso de que hayan cambiado al cambiar de tema
+            this.repaint();//Repinta todos los elementos
+        } catch (Exception ex) {
+            System.err.println("Error al cambiar el tema: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_temaBotonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1421,6 +1531,7 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
     private javax.swing.JLabel cliTinLabel;
     private javax.swing.JLabel corteLabel;
     private javax.swing.JButton editarBoton;
+    private javax.swing.JButton exportBoton;
     private javax.swing.JPanel fondo;
     private javax.swing.JLabel idSiesta1;
     private javax.swing.JLabel idSiesta2;
@@ -1454,6 +1565,7 @@ public class Vista extends javax.swing.JFrame implements SimulacionListener {
     private javax.swing.JPanel tablaCV;
     private javax.swing.JPanel tablaSC;
     private javax.swing.JPanel tablaSMR;
+    private javax.swing.JToggleButton temaBoton;
     private javax.swing.JLabel tinteLabel;
     private javax.swing.JLabel tituloCVips;
     private javax.swing.JLabel tituloLabel;

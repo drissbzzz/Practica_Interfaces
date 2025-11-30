@@ -14,19 +14,21 @@ import javax.swing.JOptionPane;
  *
  * @author driss
  */
-public class Login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame { //EXTRA, Interfaz del login
 
     /**
      * Creates new form Login
      */
     
-    UsuarioPrueba user = new UsuarioPrueba();
-    ControladorIniciodeSesion ctrl = new ControladorIniciodeSesion(user);
+    UsuarioPrueba user = new UsuarioPrueba(); //Iniciamos la clase que manejará las credenciales
+    ControladorIniciodeSesion ctrl = new ControladorIniciodeSesion(user);//El controlador que recibirá la clase usuarios para
+    //poder verificarlos
+    
     
     public Login() {
         initComponents();
-        initStyles();
-        setLocationRelativeTo(null);
+        initStyles();//Aplicamos los estilos con el FlatLaf
+        setLocationRelativeTo(null);//Centrar la interfaz de Login
     }
     
     public void initStyles(){
@@ -70,7 +72,7 @@ public class Login extends javax.swing.JFrame {
         Header.setMaximumSize(new java.awt.Dimension(1081, 237));
         Header.setMinimumSize(new java.awt.Dimension(1081, 237));
 
-        HeaderImage.setIcon(new javax.swing.ImageIcon("C:\\Users\\driss\\Documents\\NetBeansProjects\\Practica_Interfaces\\interfaces\\src\\main\\java\\com\\mycompany\\interfaces\\Vista\\images\\Header.png")); // NOI18N
+        HeaderImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Header.png"))); // NOI18N
 
         javax.swing.GroupLayout HeaderLayout = new javax.swing.GroupLayout(Header);
         Header.setLayout(HeaderLayout);
@@ -88,22 +90,23 @@ public class Login extends javax.swing.JFrame {
         LogoContainer.setMinimumSize(new java.awt.Dimension(522, 420));
 
         Logo.setBackground(new java.awt.Color(255, 250, 240));
-        Logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\driss\\Documents\\NetBeansProjects\\Practica_Interfaces\\interfaces\\src\\main\\java\\com\\mycompany\\interfaces\\Vista\\images\\logoLogin.png")); // NOI18N
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logoLogin.png"))); // NOI18N
 
         javax.swing.GroupLayout LogoContainerLayout = new javax.swing.GroupLayout(LogoContainer);
         LogoContainer.setLayout(LogoContainerLayout);
         LogoContainerLayout.setHorizontalGroup(
             LogoContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LogoContainerLayout.createSequentialGroup()
-                .addGap(0, 222, Short.MAX_VALUE)
-                .addComponent(Logo))
+                .addContainerGap(204, Short.MAX_VALUE)
+                .addComponent(Logo)
+                .addGap(29, 29, 29))
         );
         LogoContainerLayout.setVerticalGroup(
             LogoContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LogoContainerLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(57, 57, 57)
                 .addComponent(Logo)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         PanelCred.setBackground(new java.awt.Color(217, 220, 237));
@@ -224,9 +227,8 @@ public class Login extends javax.swing.JFrame {
             .addGroup(BodyLayout.createSequentialGroup()
                 .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(PanelCred, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(BodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(LogoContainer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LogoContainer, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         BodyLayout.setVerticalGroup(
@@ -259,17 +261,18 @@ public class Login extends javax.swing.JFrame {
         String user = usuario.getText();
         String pass = new String(passField.getPassword());
         String rol  = seleccionRol.getSelectedItem().toString();
-        boolean comprobador = ctrl.autenticar(user, pass, rol);
+        boolean comprobador = ctrl.autenticar(user, pass, rol);// Se usa el metodo autenticar del controlador 
+        //para comprobar si el input del usuario es el mismo que el de la clase Usuario que creamos
         
-        if (comprobador) {
-            JOptionPane.showMessageDialog(this, "Inicio de sesión correcto");
-            Vista vistaPrincipal = new Vista(rol);
+        if (comprobador) { //Si el inicio de sesion es correcto
+            JOptionPane.showMessageDialog(this, "Inicio de sesión correcto"); //Notificacion
+            Vista vistaPrincipal = new Vista(rol); //Se abre la vista con el rol que se selecciono
             vistaPrincipal.setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Credenciales incorrectas");
+            this.dispose();//Se cierra el login
+        } else {//Si no
+            JOptionPane.showMessageDialog(this, "Credenciales incorrectas"); //Aviso al usuario
             usuario.setText("Usuario");
-            passField.setText("");
+            passField.setText("");//Reseteo de los Fields
         }
     }//GEN-LAST:event_botonIniciarActionPerformed
 

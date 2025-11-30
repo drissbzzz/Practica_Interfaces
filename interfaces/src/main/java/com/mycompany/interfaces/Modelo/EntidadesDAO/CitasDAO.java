@@ -16,7 +16,7 @@ import java.sql.Timestamp;
  *
  * @author driss
  */
-public class CitasDAO {
+public class CitasDAO { 
     
     private Connection conn;
 

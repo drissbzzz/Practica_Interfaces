@@ -10,7 +10,9 @@ package com.mycompany.interfaces.Modelo;
  */
 public class UsuarioPrueba {
 
-    public boolean validar(String usuario, String pass, String rol) {
+    //Esta es una clase que simula los usuarios para acceder a la interfaz
+    public boolean validar(String usuario, String pass, String rol) { //Metodo que recibe por parametro
+        //lo introducido por el usuario, si coincide devuelve true
 
         if (usuario.equals("Jose") && pass.equals("Apruebame2025_") && rol.equals("Administrador")) {
             return true;

@@ -15,7 +15,7 @@ import java.sql.SQLException;
 
 public class ConexionBD {
 
-    // Datos de conexión 
+    // Datos para realizar la conexión a la base de datos
     private static final String url = "jdbc:postgresql://localhost:5432/peluqueriaspaquita"; 
     private static final String usuario = "postgres";
     private static final String contrasena = "1234";

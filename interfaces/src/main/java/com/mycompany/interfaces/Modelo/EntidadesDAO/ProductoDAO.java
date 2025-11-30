@@ -69,8 +69,11 @@ public class ProductoDAO {
         }
         return null;
     }
-    public List<Productos> getAll() {
+    public List<Productos> getAll() {        
         List<Productos> lista = new ArrayList<>();
+        if (conn == null) {
+            return lista;
+        }
         try {
             String sql = "SELECT * FROM \"PRODUCTOS\"";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -93,6 +96,9 @@ public class ProductoDAO {
     
     public List<Productos> getStockCriticos() {
         List<Productos> lista = new ArrayList<>();
+        if (conn == null) {
+            return lista;
+        }
         try {
             String sql =  "SELECT \"ID_PRODUCTO\",\"NOMBRE\",\"STOCK_ACTUAL\", \"STOCK_MAX\"\n"
                         + "FROM \"PRODUCTOS\"\n"

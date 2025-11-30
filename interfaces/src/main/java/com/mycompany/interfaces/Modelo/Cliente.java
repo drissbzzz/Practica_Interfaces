@@ -8,10 +8,13 @@ import java.time.LocalDateTime;
 
 /**
  *
- * @author alumno
+ * @author driss
  */
 public class Cliente {
     
+    //Para cumplir con la estructura MVC, he creado una clase para que represente cada tabla de la base de datos
+    
+    //Atributos (columnas) de la tabla
     private int id_cliente;
     private String nombre;
     private String apellidos;

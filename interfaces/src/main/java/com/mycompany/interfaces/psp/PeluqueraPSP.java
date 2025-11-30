@@ -37,14 +37,13 @@ public class PeluqueraPSP extends Thread {
                 p.esperarTimbre();
                 boolean heTrabajado = false;
 
-                try {
+                try { 
                     if (p.getPeinado().atender(this)) heTrabajado = true;
                     else if (p.getTinte().atender(this)) heTrabajado = true;
                     else if (p.getCorte().atender(this)) heTrabajado = true;
                     else if (p.getLavado().atender(this)) heTrabajado = true;
                 } catch (Exception e) {
-                    System.err.println("ERROR EN PELUQUERA " + id + ": " + e.getMessage()); 
-                    e.printStackTrace(); // Veremos el error real   
+                    e.printStackTrace();
                 }
 
                 if (!heTrabajado) {
@@ -54,24 +53,26 @@ public class PeluqueraPSP extends Thread {
                 } else {
                     clientesAtendidos++;
                     totalClientesHistorico++;
-                    if (clientesAtendidos >=3 ) {
+                    if (clientesAtendidos >=10 ) {
 
                         LoggerPSP.escribir("Peluquera " + id + " se toma una siesta...");
                         p.getCntrl().registrarCambioPeluquera(true);
                         p.getCntrl().escribirMensaje("Peluquera " + id + " se toma una siesta...");
-                        //Siesta larga
+                        //En vez de hacer una siesta random, primero se declara el numero random para poder trabajar sobre el para
+                        //la barra de progreso
                         int tiempoSiesta = (int) (Math.random() * 2000 + 1000);
-                        int partes = 20;
+                        int partes = 20; //Las veces que se actualizará la barra para mostrar el progreso
                         for (int i = 1; i <= partes; i++) {
                             int porcentaje = (i * 100) / partes;
-                            p.getCntrl().actualizarPeluquera(id, porcentaje, true);
-                            Thread.sleep(tiempoSiesta / partes);
+                            p.getCntrl().actualizarPeluquera(id, porcentaje, true);//avisamos de que el estado de la peluquera esta cambiando
+                            Thread.sleep(tiempoSiesta / partes);// Como estamos en un bucle for, se tomara muchas siestas cortas en poco tiempo que simularan una
+                            //Si fuese una sola, veriamos la barra pasar de 0 a 100 y ya 
                         }
                         LoggerPSP.escribir("Peluquera " + id + " vuelve al trabajo.");
                         p.getCntrl().escribirMensaje("Peluquera " + id + " vuelve al trabajo.");
-                        p.getCntrl().registrarCambioPeluquera(false);
-                        clientesAtendidos = 0;
-                        p.getCntrl().actualizarPeluquera(id, 0, false);                       
+                        p.getCntrl().registrarCambioPeluquera(false); //Para actualizar el field de peluqueras durmiendo
+                        clientesAtendidos = 0;//Se resetea el contador para la siguiente siesta
+                        p.getCntrl().actualizarPeluquera(id, 0, false);//Se actualiza la barra a 0 y avisamos de que la peluquera no esta durmiendo                       
                     }
                 }
             } catch (Exception e) {

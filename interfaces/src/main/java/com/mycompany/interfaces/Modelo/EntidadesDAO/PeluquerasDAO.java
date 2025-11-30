@@ -68,6 +68,9 @@ public class PeluquerasDAO {
     }
      public List<Peluqueras> getAll() {
         List<Peluqueras> lista = new ArrayList<>();
+        if (conn == null) {
+            return lista;
+        }
         try {
             String sql = "SELECT * FROM \"PELUQUERAS\"";
             PreparedStatement ps = conn.prepareStatement(sql);

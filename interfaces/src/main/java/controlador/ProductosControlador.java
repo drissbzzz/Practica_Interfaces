@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author alumno
+ * @author driss
  */
 public class ProductosControlador {
     
@@ -57,16 +57,4 @@ public class ProductosControlador {
         JTable tabla = new JTable(modeloTabla);
         return tabla;
     }
-    /*public static void main(String[] args) {
-
-        ProductosControlador hola = new ProductosControlador();
-        JTable tabla = hola.tablaSC();
-        if (tabla.getRowCount() == 0) {
-            System.out.println("La tabla está vacía o no se ha cargado correctamente.");
-        } else {
-            System.out.println("La tabla se ha cargado correctamente.");
-        }
-    }*/
-    //FUNCIONA
-
 }

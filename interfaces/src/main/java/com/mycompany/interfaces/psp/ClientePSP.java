@@ -11,14 +11,14 @@ import com.mycompany.interfaces.Modelo.Cliente;
  *
  * @author driss
  */
-public class ClientePSP extends Thread {
+public class ClientePSP extends Thread { //Esta clase es el hilo que hará la concuerrencia para el apartado Simulacion
 
     private Cliente c;
     private PeluqueriaPSP p;
 
     public Cliente getC() {
         return c;
-    }
+    } //Recibe un cliente para poder ajustarse a la base de datos y sincronizarse
 
     public ClientePSP(Cliente c, PeluqueriaPSP peluqueria) {
         this.c = c;
@@ -28,8 +28,7 @@ public class ClientePSP extends Thread {
     @Override
     public void run() {
         
-        String nombre = c.getNombre();
-        int id = c.getId_cliente();
+        int id = c.getId_cliente(); //Se coge el id del cliente
         try {
             p.getLavado().entrar(this);
             p.getCorte().entrar(this);

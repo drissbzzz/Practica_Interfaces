@@ -6,7 +6,7 @@ package com.mycompany.interfaces.Modelo;
 
 /**
  *
- * @author alumno
+ * @author driss
  */
 public class Peluqueras {
     

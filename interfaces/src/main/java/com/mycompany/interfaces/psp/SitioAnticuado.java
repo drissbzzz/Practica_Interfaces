@@ -38,10 +38,10 @@ public class SitioAnticuado {
             hiloActual = c; 
             Cliente datos = c.getC();
             LoggerPSP.escribir("Cliente " + datos.getId_cliente() + " se sienta en " + nombre + " y espera...");
-            p.getCntrl().escribirMensaje("Cliente " + datos.getId_cliente() + " se sienta en " + nombre + " y espera...");
+            p.getCntrl().escribirMensaje("Cliente " + datos.getId_cliente() + " se sienta en " + nombre + " y espera..."); //usamos el metodo escribir para introducirlo en el log
             ocupado = true; //Para que la peluquera antes de actuar confirme que hay un cliente
-            String nombreCli = c.getC().getNombre();
-            p.getCntrl().actualizarZona(nombre, nombreCli, "Esperando...", 0);
+            String nombreCli = datos.getNombre();//Extraemos el nombre del cliente 
+            p.getCntrl().actualizarZona(nombre, nombreCli, "Esperando...", 0);//Enviamos la notificacion de que hay que actualizar la zona y le pasamos lo que hay que enseñar
             p.tocarTimbre();// Cliente libera un ticket general para indicar que hay trabajo pendiente
             finServicio.acquire(); //Intenta adquirir un ticket de servicio terminado
             LoggerPSP.escribir("Cliente " + datos.getId_cliente() + " sale de " + nombre);
@@ -68,19 +68,22 @@ public class SitioAnticuado {
                 LoggerPSP.escribir("Peluquera " + pelu.getIdPeluquera() + " atendiendo en " + nombre);
                 p.getCntrl().escribirMensaje("Peluquera " + pelu.getIdPeluquera() + " atendiendo en " + nombre);
                 //Actualización de la barra de progreso
+                //Usamos el mismo metodo que en la de la siesta
                 int tiempoSer = (int) (Math.random() * 4000 + 2000);
                 int partes = 20;
 
                 for (int i = 1; i <= partes; i++) {
                     if (p.esDetenido()) return false;
-                    p.comprobarPausa();
+                    p.comprobarPausa();//Siempre hay que comprobar si esta detenido o pausado el programa para no actualizar
                     try {
                         Thread.sleep(tiempoSer / partes);
                     } catch (Exception e) {
                     }
                     int porcentaje = (i * 100) / partes;
-                    p.getCntrl().actualizarZona(nombre, nombreCli, nombrePelu, porcentaje);
+                    p.getCntrl().actualizarZona(nombre, nombreCli, nombrePelu, porcentaje);//Se actualiza esta vez con la Peluquera asignada
                 }      
+                
+                //Precios de cada servicio segun la base de datos
                 double precio = 0;
                 switch (nombre) {
                     case "Lavado":
@@ -96,7 +99,7 @@ public class SitioAnticuado {
                         precio = 23.0;
                         break;
                 }               
-                p.getCntrl().sumarGananciaServicio(precio, tiempoSer);
+                p.getCntrl().sumarGananciaServicio(precio, tiempoSer);//Para actualizar los indicaros de la parte derecha de la simulacion
                 finServicio.release();
                 p.getCntrl().actualizarZona(nombre, "", "", 0);// Aviso de que el servicio ya está realizado         
                 ocupado = false; // La peluquera termina de atender y pone como que el sitio ya no está ocupado

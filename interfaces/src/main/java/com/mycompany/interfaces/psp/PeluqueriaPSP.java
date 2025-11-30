@@ -18,10 +18,10 @@ public class PeluqueriaPSP {
 
     private Semaphore timbreGeneral = new Semaphore(0);
 
-    // VARIABLES DE CONTROL
+    // Variables para controlar el estado de simulacion
     private boolean pausado = false;
     private boolean detenido = false;
-    private final Object cerrojoPausa = new Object();
+    private final Object cerrojoPausa = new Object(); //Este objeto es el que permitira pausar las cosas hasta que el decida liberarlas de nuevo
 
     public PeluqueriaPSP(SimuladorControlador cntrl) {
         this.cntrl = cntrl;
@@ -52,13 +52,11 @@ public class PeluqueriaPSP {
     }
 
     public void alternarPausa() {
-        synchronized (cerrojoPausa) {
+        synchronized (cerrojoPausa) { //Es snchronized porque si no no podemos usar los metodos notify ni wait y nos evita condiciones de carrera a la hora de pausar
             pausado = !pausado; // Cambia de true a false y viceversa
             if (!pausado) {
-                cerrojoPausa.notifyAll(); // ¡Despertad todos! Luz verde.
-                System.out.println("SISTEMA REANUDADO");
+                cerrojoPausa.notifyAll(); // Despierta todos los hilos
             } else {
-                System.out.println("SISTEMA PAUSADO");
             }
         }
     }
@@ -67,7 +65,7 @@ public class PeluqueriaPSP {
         synchronized (cerrojoPausa) {
             while (pausado) {
                 try {
-                    cerrojoPausa.wait(); // Se duerme aquí hasta que pausado sea false
+                    cerrojoPausa.wait(); // Siempre que este pausado en true todos esperan la notificacion dormidos
                 } catch (InterruptedException e) {
                 }
             }

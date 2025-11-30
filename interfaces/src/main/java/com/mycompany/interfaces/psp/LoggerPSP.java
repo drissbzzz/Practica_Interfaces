@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  *
  * @author driss
  */
-public class LoggerPSP {
+public class LoggerPSP { //Logger de PSP, comentado en su respectiva practica
 
     private static String archivo = "registro_peluqueria.txt";
 

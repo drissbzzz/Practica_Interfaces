@@ -13,13 +13,15 @@ import javax.swing.UIManager;
 
 /**
  *
- * @author alumno
+ * @author driss
  */
 public class main {
 
-        public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        FlatLightLaf.setup();
+        public static void main(String args[]) {      
+        FlatLightLaf.setup(); //importamos una libreria look and feel que le da un aspecto más moderno y nos permite
+        //la implementacion del modo oscuro de manera mas sencilla
+        
+        //Personalizacion de los elementos: TabbedPane y ProgressBar
         UIManager.put( "TabbedPane.selectedBackground", Color.white );
         UIManager.put( "ProgressBar.arc", 999 );
 

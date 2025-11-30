@@ -8,7 +8,8 @@ package controlador;
  *
  * @author driss
  */
-public interface SimulacionListener {
+public interface SimulacionListener { //Para evitar pasar la vista al controlador y estropear la estructura del MVC, el controlador avisa al listener y este 
+    // avisa a la vista de que hay que actualizarse
     
     public void hayNuevoMensaje(String mensaje);
     public void hayCambioZona(String zona, String cliente, String peluquera, int porcentaje);

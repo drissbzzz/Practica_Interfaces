@@ -10,18 +10,16 @@ import com.mycompany.interfaces.Modelo.UsuarioPrueba;
  *
  * @author driss
  */
-public class ControladorIniciodeSesion {
-    
-    
+public class ControladorIniciodeSesion { //Este es el controlador que comunica entre interfaz y la clase usuario para
+    // verificar los datos
+       
     private UsuarioPrueba prueba;
 
     public ControladorIniciodeSesion(UsuarioPrueba prueba) {
         this.prueba = prueba;
     }
-
     public ControladorIniciodeSesion() {
     }
-
     public boolean autenticar(String usuario, String pass, String rol) {
         return prueba.validar(usuario, pass, rol);
     }

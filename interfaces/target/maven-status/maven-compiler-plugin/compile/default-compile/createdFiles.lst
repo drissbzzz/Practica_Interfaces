@@ -3,6 +3,7 @@ com\mycompany\interfaces\Modelo\Productos.class
 com\mycompany\interfaces\psp\ClientePSP.class
 controlador\SimulacionListener.class
 com\mycompany\interfaces\Vista\Vista$14.class
+com\mycompany\interfaces\Vista\Vista$17.class
 com\mycompany\interfaces\Modelo\EntidadesDAO\TicketDAO.class
 com\mycompany\interfaces\Vista\Vista$3.class
 com\mycompany\interfaces\Vista\Vista$13.class
@@ -29,6 +30,7 @@ com\mycompany\interfaces\psp\PeluqueraPSP.class
 com\mycompany\interfaces\Vista\Vista$5.class
 controlador\ControladorIniciodeSesion.class
 com\mycompany\interfaces\Modelo\UsuarioPrueba.class
+com\mycompany\interfaces\Modelo\EntidadesDAO\ExportadorDatos.class
 com\mycompany\interfaces\psp\LoggerPSP.class
 com\mycompany\interfaces\Vista\Login$3.class
 com\mycompany\interfaces\Modelo\EntidadesDAO\ClienteDAO.class
@@ -44,6 +46,7 @@ com\mycompany\interfaces\Vista\Login.class
 controlador\PeluquerasControlador.class
 com\mycompany\interfaces\psp\PeluqueriaPSP.class
 com\mycompany\interfaces\Modelo\Citas.class
+com\mycompany\interfaces\Vista\Vista$18.class
 controlador\mainControlador.class
 com\mycompany\interfaces\Modelo\ConexionBD.class
 com\mycompany\interfaces\Vista\Vista$7.class
